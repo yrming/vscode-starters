@@ -3,6 +3,7 @@
   "displayName": "Starter Templates",
   "description": "Create a project quickly and easily in VSCode",
   "version": "0.1.0",
+  "publisher": "YRM",
   "license": "MIT",
   "repository": {
     "type": "git",
