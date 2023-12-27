@@ -93,6 +93,8 @@
   },
   "scripts": {
     "vscode:prepublish": "pnpm run compile",
+    "publish": "vsce publish --no-dependencies",
+    "pack": "vsce package --no-dependencies",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
     "pretest": "pnpm run compile && pnpm run lint",
