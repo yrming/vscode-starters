@@ -129,24 +129,15 @@ export class StarterCommands extends BaseCommands {
         kind: QuickPickItemKind.Separator,
         label: "Nuxt",
       },
-      {
-        label: "Nuxi(Official)",
-        detail: "⚡️ Nuxt Generation CLI Experience",
-        template: { id: "nuxi", defaultProjectName: 'vue-vitesse-lite-project' },
-      },
+      // {
+      //   label: "Nuxi(Official)",
+      //   detail: "⚡️ Nuxt Generation CLI Experience",
+      //   template: { id: "nuxi", defaultProjectName: 'nuxt-project' },
+      // },
       {
         label: "Vitesse Nuxt3(Anthony Fu)",
         detail: "Vitesse for Nuxt 3 🏔💚⚡️",
         template: { id: "vitesse-nuxt3", defaultProjectName: 'nuxt-vitesse-project' },
-      },
-      {
-        kind: QuickPickItemKind.Separator,
-        label: "TypeScript Library",
-      },
-      {
-        label: "Starter TS(Anthony Fu)",
-        detail: "Starter template for TypeScript library",
-        template: { id: "starter-ts", defaultProjectName: 'ts-library-project' },
       },
       {
         kind: QuickPickItemKind.Separator,
@@ -156,6 +147,15 @@ export class StarterCommands extends BaseCommands {
         label: "Vitesse WebExt(Anthony Fu)",
         detail: "⚡️ WebExtension Vite Starter Template",
         template: { id: "vitesse-webext", defaultProjectName: 'webext-vitesse-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
+        label: "TypeScript Library",
+      },
+      {
+        label: "Starter TS(Anthony Fu)",
+        detail: "Starter template for TypeScript library",
+        template: { id: "starter-ts", defaultProjectName: 'ts-library-project' },
       },
     ]
     return templates

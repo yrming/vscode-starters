@@ -1,71 +1,32 @@
-# starter-template README
+<br>
+<p align="center">
+<img src="resources/icon.png" alt="logo" width="200"/>
+</p>
 
-This is the README for your extension "starter-template". After writing up a brief description, we recommend including the following sections.
+<p align="center">
+Create a project quickly and easily in VSCode
+</p>
 
-## Features
+<br>
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+**Status**: Preview
 
-For example if there is an image subfolder under your extension project workspace:
+## Why
 
-\!\[feature X\]\(images/feature-x.png\)
+- As a front-end developer, every time I create a new project, I always open a terminal, enter some commands recommended in the front-end framework documentation, enter or select something in the terminal, and finally get a new project. This whole process is a bit tedious for me, because I often forget these commands. During the development of Flutter, I found that I could quickly create a Flutter project through the Dart extension of VSCode, I was wondering if I could do the same when creating some front-end projects, so I developed this.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+## Support Templates
 
-## Requirements
+- [Create Vue](https://github.com/vuejs/create-vue) - The recommended way to start a Vite-powered Vue project.
+- [Vitesse](https://github.com/antfu/vitesse) - Opinionated starter template.
+- [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
+- [Vitesse Nuxt3](https://github.com/antfu/vitesse-nuxt3) - Vitesse for Nuxt 3.
+- [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
+- [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
+- ...
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+<br>
 
-## Extension Settings
+## License
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
-
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
-## Release Notes
-
-Users appreciate release notes as you update your extension.
-
-### 1.0.0
-
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
-
----
-
-## Following extension guidelines
-
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
-
-## Working with Markdown
-
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
-
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
-
-## For more information
-
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-**Enjoy!**
+MIT License © 2023 [YRM](https://github.com/yrming)
