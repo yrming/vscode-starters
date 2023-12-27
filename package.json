@@ -1,6 +1,6 @@
 {
-  "name": "starter",
-  "displayName": "Starter",
+  "name": "starter-templates",
+  "displayName": "Starter Templates",
   "description": "",
   "version": "0.0.1",
   "engines": {
@@ -9,14 +9,78 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "workspaceContains:starterTemplates.create",
+    "onUri"
+  ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "starter.create-project",
+        "command": "starterTemplates.createProject",
         "title": "New Project",
-        "category": "Starter"
+        "category": "Starter Templates"
+      }
+    ],
+    "configuration": [
+      {
+        "title": "Create Vue(Official)",
+        "order": 1,
+        "properties": {
+          "starterTemplates.createVueNeedsTypeScript": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add TypeScript?",
+            "scope": "window"
+          },
+          "starterTemplates.createVueNeedsJsx": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add JSX Support?",
+            "scope": "window"
+          },
+          "starterTemplates.createVueNeedsRouter": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add Vue Router for Single Page Application development?",
+            "scope": "window"
+          },
+          "starterTemplates.createVueNeedsPinia": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add Pinia for state management?",
+            "scope": "window"
+          },
+          "starterTemplates.createVueNeedsVitest": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add Vitest for Unit Testing?",
+            "scope": "window"
+          },
+          "starterTemplates.createVueEndToEndTestingSolution": {
+            "enum": [
+              "Cypress",
+              "Nightwatch",
+              "Playwright",
+              "No"
+            ],
+            "default": "Cypress",
+            "description": "Add an End-to-End Testing Solution?",
+            "scope": "window"
+          },
+          "starterTemplates.createVueNeedsEslint": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add ESLint for code quality?",
+            "scope": "window"
+          },
+          "starterTemplates.createVueNeedsPrettier": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add Prettier for code formatting?",
+            "scope": "window"
+          }
+        }
       }
     ]
   },
@@ -39,5 +103,11 @@
     "@vscode/test-electron": "^2.3.8",
     "eslint": "^8.54.0",
     "typescript": "^5.3.2"
+  },
+  "dependencies": {
+    "@types/degit": "^2.8.6",
+    "degit": "^2.8.4",
+    "execa": "^8.0.1",
+    "vscode-uri": "^3.0.8"
   }
 }
