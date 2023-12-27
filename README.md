@@ -13,8 +13,8 @@ Create a project quickly and easily in VSCode
 
 ## Why
 
-- As a front-end developer, every time I create a new project, I always open a terminal, enter some commands recommended in the front-end framework documentation, enter or select something in the terminal, and finally get a new project. This whole process is a bit tedious for me, because I often forget these commands. 
-- During the development of Flutter, I found that I could quickly create a Flutter project through the Dart extension of VSCode, I was wondering if I could do the same when creating some front-end projects, so I developed this.
+- As a front-end developer, everytime before I create a new project, I have to open a terminal, enter some commands recommended in the front-end framework documentation; sometimes I even forget these commands. This whole process apparently needs more efficiency.
+- During the development of Flutter, I found that I could quickly create a Flutter project through the Dart extension for VSCode, so I developed this extension in order to do the same when creating some front-end projects.
 
 ## Support Templates
 
