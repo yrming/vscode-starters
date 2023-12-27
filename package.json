@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starter Templates",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Create a project quickly and easily in VSCode",
   "license": "MIT",
   "repository": {
@@ -93,13 +93,10 @@
     ]
   },
   "scripts": {
-    "build": "tsup src/extension.ts --external vscode",
-    "vscode:prepublish": "pnpm run build",
-    "publish": "vsce publish --no-dependencies",
-    "pack": "vsce package --no-dependencies",
+    "vscode:prepublish": "npm run compile",
     "compile": "tsc -p ./",
     "watch": "tsc -watch -p ./",
-    "pretest": "pnpm run compile && pnpm run lint",
+    "pretest": "npm run compile && npm run lint",
     "lint": "eslint src --ext ts",
     "format": "eslint . --fix",
     "test": "vscode-test"
@@ -120,7 +117,6 @@
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8",
     "eslint": "^8.54.0",
-    "tsup": "^8.0.1",
     "typescript": "^5.3.2"
   }
 }
