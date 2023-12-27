@@ -1,5 +1,5 @@
-import * as child_process from "child_process";
-import * as stream from "stream";
+import type * as child_process from 'node:child_process'
+import type * as stream from 'node:stream'
 
 export interface ProjectTemplate {
   readonly id: string
@@ -11,15 +11,15 @@ export interface IAmDisposable {
 }
 
 export type SpawnedProcess = child_process.ChildProcess & {
-  stdin: stream.Writable,
-  stdout: stream.Readable,
-  stderr: stream.Readable,
+  stdin: stream.Writable
+  stdout: stream.Readable
+  stderr: stream.Readable
 }
 
 export interface Logger {
-  info(message: string, category?: LogCategory): void;
-  warn(message: any, category?: LogCategory): void;
-  error(error: any, category?: LogCategory): void;
+  info(message: string, category?: LogCategory): void
+  warn(message: any, category?: LogCategory): void
+  error(error: any, category?: LogCategory): void
 }
 
 export enum LogCategory {
@@ -30,25 +30,25 @@ export enum LogCategory {
 export interface ProjectFolderSearchResults { projectFolders: string[], excludedFolders: Set<string> };
 
 export interface MyCancellationToken {
-  isCancellationRequested: boolean;
+  isCancellationRequested: boolean
 }
 
 export interface StarterCreateTriggerData {
-  readonly templateId: string;
+  readonly templateId: string
   readonly projectName: string
 }
 
 export interface StarterCreateCommandArgs {
-  projectPath?: string;
-  projectName?: string;
-  triggerData?: StarterCreateTriggerData;
+  projectPath?: string
+  projectName?: string
+  triggerData?: StarterCreateTriggerData
 }
 
 export interface LogMessage {
-  readonly message: string;
-  readonly severity: LogSeverity;
-  readonly category: LogCategory;
-  toLine(maxLength: number): string;
+  readonly message: string
+  readonly severity: LogSeverity
+  readonly category: LogCategory
+  toLine(maxLength: number): string
 }
 
 export enum LogSeverity {
