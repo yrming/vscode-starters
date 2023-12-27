@@ -3,6 +3,10 @@
   "displayName": "Starter Templates",
   "description": "Create a project quickly and easily in VSCode",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yrming/vscode-starter-templates"
+  },
   "engines": {
     "vscode": "^1.85.0"
   },
