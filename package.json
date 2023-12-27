@@ -92,7 +92,8 @@
     ]
   },
   "scripts": {
-    "vscode:prepublish": "pnpm run compile",
+    "build": "tsup src/extension.ts --external vscode",
+    "vscode:prepublish": "pnpm run build",
     "publish": "vsce publish --no-dependencies",
     "pack": "vsce package --no-dependencies",
     "compile": "tsc -p ./",
@@ -103,13 +104,13 @@
     "test": "vscode-test"
   },
   "dependencies": {
-    "@types/degit": "^2.8.6",
     "degit": "^2.8.4",
     "execa": "^8.0.1",
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
+    "@types/degit": "^2.8.6",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
     "@types/vscode": "^1.85.0",
@@ -118,6 +119,7 @@
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8",
     "eslint": "^8.54.0",
+    "tsup": "^8.0.1",
     "typescript": "^5.3.2"
   }
 }
