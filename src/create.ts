@@ -16,6 +16,7 @@ export async function handleNewProjects(logger: Logger, context: Context): Promi
     }
     catch (e) {
       logger.error('Failed to create project')
+      console.log('Failed to create project', e)
       void window.showErrorMessage('Failed to create project')
     }
   }))

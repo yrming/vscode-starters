@@ -4,6 +4,7 @@ import { chdir, cwd } from 'node:process'
 import type { QuickPickItem } from 'vscode'
 import { QuickPickItemKind, Uri, commands, window } from 'vscode'
 import degit from 'degit'
+import execa from 'execa'
 import type { Logger, ProjectTemplate, StarterCreateCommandArgs, StarterCreateTriggerData } from '../types'
 import { fsPath, nextAvailableFilename } from '../shared/utils/fs'
 import type { Context } from '../shared/vscode/workspace'
@@ -32,12 +33,9 @@ export class StarterCommands extends BaseCommands {
     const { templateId, projectName } = triggerData
     switch (templateId) {
       case 'create-vue':
-        this.logger.info('Starter Templates create-vue')
         chdir(projectPath)
         chdir('..')
         const dir = cwd()
-        const { $ } = (await import('execa'))
-        console.log(config.createVueEndToEndTestingSolution)
         const args = ['--force']
         if (config.createVueNeedsTypeScript)
           args.push('--ts')
@@ -65,7 +63,7 @@ export class StarterCommands extends BaseCommands {
           else
             args.push('--eslint')
         }
-        await $`npx create-vue ${projectName} ${dir} ${args}`
+        await execa('npx', ['create-vue', projectName, dir, ...args])
         break
       case 'vitesse':
         await degit('antfu/vitesse').clone(`${projectPath}`)

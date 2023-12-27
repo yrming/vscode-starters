@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starter Templates",
-  "version": "0.1.2",
+  "version": "0.1.6",
   "description": "Create a project quickly and easily in VSCode",
   "license": "MIT",
   "repository": {
@@ -103,7 +103,7 @@
   },
   "dependencies": {
     "degit": "^2.8.4",
-    "execa": "^8.0.1",
+    "execa": "^5.1.1",
     "vscode-uri": "^3.0.8"
   },
   "devDependencies": {
