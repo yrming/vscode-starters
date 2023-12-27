@@ -5,6 +5,7 @@
   "version": "0.1.0",
   "publisher": "YRM",
   "license": "MIT",
+  "icon": "resources/icon.png",
   "repository": {
     "type": "git",
     "url": "https://github.com/yrming/vscode-starter-templates"
