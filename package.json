@@ -27,37 +27,37 @@
         "title": "Create Vue(Official)",
         "order": 1,
         "properties": {
-          "starterTemplates.createVueNeedsTypeScript": {
+          "starterTemplates.createVue.needsTypeScript": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add TypeScript?",
             "scope": "window"
           },
-          "starterTemplates.createVueNeedsJsx": {
+          "starterTemplates.createVue.needsJsx": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add JSX Support?",
             "scope": "window"
           },
-          "starterTemplates.createVueNeedsRouter": {
+          "starterTemplates.createVue.needsRouter": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Vue Router for Single Page Application development?",
             "scope": "window"
           },
-          "starterTemplates.createVueNeedsPinia": {
+          "starterTemplates.createVue.needsPinia": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Pinia for state management?",
             "scope": "window"
           },
-          "starterTemplates.createVueNeedsVitest": {
+          "starterTemplates.createVue.needsVitest": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Vitest for Unit Testing?",
             "scope": "window"
           },
-          "starterTemplates.createVueEndToEndTestingSolution": {
+          "starterTemplates.createVue.endToEndTestingSolution": {
             "enum": [
               "Cypress",
               "Nightwatch",
@@ -68,13 +68,13 @@
             "description": "Add an End-to-End Testing Solution?",
             "scope": "window"
           },
-          "starterTemplates.createVueNeedsEslint": {
+          "starterTemplates.createVue.needsEslint": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add ESLint for code quality?",
             "scope": "window"
           },
-          "starterTemplates.createVueNeedsPrettier": {
+          "starterTemplates.createVue.needsPrettier": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Prettier for code formatting?",

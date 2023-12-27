@@ -37,23 +37,23 @@ class Config {
 
   get projectSearchDepth(): number { return this.getConfig<number>("projectSearchDepth", 5); }
 
-  get createVueNeedsTypeScript(): boolean { return this.getConfig<boolean>("createVueNeedsTypeScript", true); }
-  get createVueNeedsJsx(): boolean { return this.getConfig<boolean>("createVueNeedsJsx", true); }
-  get createVueNeedsRouter(): boolean { return this.getConfig<boolean>("createVueNeedsRouter", true); }
-  get createVueNeedsPinia(): boolean { return this.getConfig<boolean>("createVueNeedsPinia", true); }
-  get createVueNeedsVitest(): boolean { return this.getConfig<boolean>("createVueNeedsVitest", true); }
-  get createVueEndToEndTestingSolution(): "Cypress" | "Nightwatch" | "Playwright" | "No" { return this.getConfig<"Cypress" | "Nightwatch" | "Playwright" | "No">("createVueEndToEndTestingSolution", "Cypress"); }
-  get createVueNeedsEslint(): boolean { return this.getConfig<boolean>("createVueNeedsEslint", true); }
-  get createVueNeedsPrettier(): boolean { return this.getConfig<boolean>("createVueNeedsPrettier", true); }
+  get createVueNeedsTypeScript(): boolean { return this.getConfig<boolean>("createVue.needsTypeScript", true); }
+  get createVueNeedsJsx(): boolean { return this.getConfig<boolean>("createVue.needsJsx", true); }
+  get createVueNeedsRouter(): boolean { return this.getConfig<boolean>("createVue.needsRouter", true); }
+  get createVueNeedsPinia(): boolean { return this.getConfig<boolean>("createVue.needsPinia", true); }
+  get createVueNeedsVitest(): boolean { return this.getConfig<boolean>("createVue.needsVitest", true); }
+  get createVueEndToEndTestingSolution(): "Cypress" | "Nightwatch" | "Playwright" | "No" { return this.getConfig<"Cypress" | "Nightwatch" | "Playwright" | "No">("createVue.endToEndTestingSolution", "Cypress"); }
+  get createVueNeedsEslint(): boolean { return this.getConfig<boolean>("createVue.needsEslint", true); }
+  get createVueNeedsPrettier(): boolean { return this.getConfig<boolean>("createVue.needsPrettier", true); }
 
-  public setCreateVueNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig("createVueNeedsTypeScript", value, ConfigurationTarget.Global); }
-  public setCreateVueNeedsJsx(value: boolean): Promise<void> { return this.setConfig("createVueNeedsJsx", value, ConfigurationTarget.Global); }
-  public setCreateVueNeedsRouter(value: boolean): Promise<void> { return this.setConfig("createVueNeedsRouter", value, ConfigurationTarget.Global); }
-  public setCreateVueNeedsPinia(value: boolean): Promise<void> { return this.setConfig("createVueNeedsPinia", value, ConfigurationTarget.Global); }
-  public setCreateVueNeedsVitest(value: boolean): Promise<void> { return this.setConfig("createVueNeedsVitest", value, ConfigurationTarget.Global); }
-  public setCreateVueEndToEndTestingSolution(value: "Cypress" | "Nightwatch" | "Playwright" | "No"): Promise<void> { return this.setConfig("createVueEndToEndTestingSolution", value, ConfigurationTarget.Global); }
-  public setCreateVueNeedsEslint(value: boolean): Promise<void> { return this.setConfig("createVueNeedsEslint", value, ConfigurationTarget.Global); }
-  public setCreateVueNeedsPrettier(value: boolean): Promise<void> { return this.setConfig("createVueNeedsPrettier", value, ConfigurationTarget.Global); }
+  public setCreateVueNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig("createVue.needsTypeScript", value, ConfigurationTarget.Global); }
+  public setCreateVueNeedsJsx(value: boolean): Promise<void> { return this.setConfig("createVue.needsJsx", value, ConfigurationTarget.Global); }
+  public setCreateVueNeedsRouter(value: boolean): Promise<void> { return this.setConfig("createVue.needsRouter", value, ConfigurationTarget.Global); }
+  public setCreateVueNeedsPinia(value: boolean): Promise<void> { return this.setConfig("createVue.needsPinia", value, ConfigurationTarget.Global); }
+  public setCreateVueNeedsVitest(value: boolean): Promise<void> { return this.setConfig("createVue.needsVitest", value, ConfigurationTarget.Global); }
+  public setCreateVueEndToEndTestingSolution(value: "Cypress" | "Nightwatch" | "Playwright" | "No"): Promise<void> { return this.setConfig("createVue.endToEndTestingSolution", value, ConfigurationTarget.Global); }
+  public setCreateVueNeedsEslint(value: boolean): Promise<void> { return this.setConfig("createVue.needsEslint", value, ConfigurationTarget.Global); }
+  public setCreateVueNeedsPrettier(value: boolean): Promise<void> { return this.setConfig("createVue.needsPrettier", value, ConfigurationTarget.Global); }
 
   public for(uri?: Uri): ResourceConfig {
     return new ResourceConfig(uri);
