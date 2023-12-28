@@ -88,16 +88,16 @@ export class StarterCommands extends BaseCommands {
       default:
         break
     }
-    if (config.globalNeedsGitInit) {
+    if (config.globalNeedsGitInit)
       await execa('git', ['init', `${projectPath}`])
-    }
+
     if (config.globalNeedsInstall) {
       await window.withProgress({
         location: ProgressLocation.Notification,
       }, async (progress) => {
         progress.report({
           message: 'Installing dependencies...',
-        });
+        })
         await installDependencies({
           cwd: projectPath,
           silent: true,
