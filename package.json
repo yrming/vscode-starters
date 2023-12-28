@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starter Templates",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "Kickstart your project with a Starter Template in VSCode",
   "license": "MIT",
   "repository": {
@@ -131,12 +131,6 @@
     "format": "eslint . --fix",
     "test": "vscode-test"
   },
-  "dependencies": {
-    "degit": "^2.8.4",
-    "execa": "^5.1.1",
-    "nypm": "^0.3.3",
-    "vscode-uri": "^3.0.8"
-  },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
     "@types/degit": "^2.8.6",
@@ -147,8 +141,12 @@
     "@typescript-eslint/parser": "^6.13.1",
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8",
+    "degit": "^2.8.4",
     "eslint": "^8.54.0",
+    "execa": "^5.1.1",
+    "nypm": "^0.3.3",
     "tsup": "^8.0.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "vscode-uri": "^3.0.8"
   }
 }
