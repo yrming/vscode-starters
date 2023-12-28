@@ -2,9 +2,10 @@ import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { chdir, cwd } from 'node:process'
 import type { QuickPickItem } from 'vscode'
-import { QuickPickItemKind, Uri, commands, window } from 'vscode'
+import { ProgressLocation, QuickPickItemKind, Uri, commands, window } from 'vscode'
 import degit from 'degit'
 import execa from 'execa'
+import { installDependencies } from 'nypm'
 import type { Logger, ProjectTemplate, StarterCreateCommandArgs, StarterCreateTriggerData } from '../types'
 import { fsPath, nextAvailableFilename } from '../shared/utils/fs'
 import type { Context } from '../shared/vscode/workspace'
@@ -86,6 +87,27 @@ export class StarterCommands extends BaseCommands {
 
       default:
         break
+    }
+    if (config.globalNeedsGitInit) {
+      await execa('git', ['init', `${projectPath}`])
+    }
+    if (config.globalNeedsInstall) {
+      await window.withProgress({
+        location: ProgressLocation.Notification,
+      }, async (progress) => {
+        progress.report({
+          message: 'Installing dependencies...',
+        });
+        await installDependencies({
+          cwd: projectPath,
+          silent: true,
+          packageManager: {
+            name: config.globalPackageManager,
+            command: config.globalPackageManager,
+          },
+        })
+      })
+      return 0
     }
     return 0
   }

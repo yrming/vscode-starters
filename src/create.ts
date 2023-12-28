@@ -50,5 +50,5 @@ async function createStarterProject(projectPath: string, triggerData: StarterCre
 }
 
 function handleStarterWelcome(workspaceFolder: WorkspaceFolder, triggerData: StarterCreateTriggerData) {
-  void window.showInformationMessage('Your project is ready !')
+  void window.showInformationMessage('Your project is ready!')
 }
