@@ -1,15 +1,11 @@
 <br>
 <p align="center">
-<img src="resources/icon.png" alt="logo" width="200"/>
+<img src="resources/icon.png" alt="logo" width="150"/>
 </p>
 
 <p align="center">
 Create a project quickly and easily in VSCode
 </p>
-
-<br>
-
-**Status**: Preview
 
 ## Why
 
@@ -26,7 +22,6 @@ Create a project quickly and easily in VSCode
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
 - ...
 
-<br>
 
 ## License
 
