@@ -32,8 +32,37 @@
     ],
     "configuration": [
       {
-        "title": "Create Vue(Official)",
+        "title": "Global Settings",
         "order": 1,
+        "properties": {
+          "starterTemplates.globalSettings.needsGitInit": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Initialize git repository?",
+            "scope": "window"
+          },
+          "starterTemplates.globalSettings.needsInstall": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Install project dependencies?",
+            "scope": "window"
+          },
+          "starterTemplates.globalSettings.packageManager": {
+            "enum": [
+              "pnpm",
+              "npm",
+              "yarn",
+              "bun"
+            ],
+            "default": "pnpm",
+            "description": "Package manager choice?",
+            "scope": "window"
+          }
+        }
+      },
+      {
+        "title": "Create Vue(Official)",
+        "order": 2,
         "properties": {
           "starterTemplates.createVue.needsTypeScript": {
             "type": "boolean",
@@ -86,35 +115,6 @@
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Prettier for code formatting?",
-            "scope": "window"
-          }
-        }
-      },
-      {
-        "title": "Nuxt3 Minimal Starter(Official)",
-        "order": 2,
-        "properties": {
-          "starterTemplates.nuxt3MinimalStarter.needsGitInit": {
-            "type": "boolean",
-            "default": true,
-            "markdownDescription": "Initialize git repository",
-            "scope": "window"
-          },
-          "starterTemplates.nuxt3MinimalStarter.needsInstall": {
-            "type": "boolean",
-            "default": true,
-            "markdownDescription": "Install project dependencies",
-            "scope": "window"
-          },
-          "starterTemplates.nuxt3MinimalStarter.packageManager": {
-            "enum": [
-              "pnpm",
-              "npm",
-              "yarn",
-              "bun"
-            ],
-            "default": "pnpm",
-            "description": "Package manager choice",
             "scope": "window"
           }
         }

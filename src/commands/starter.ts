@@ -73,7 +73,6 @@ export class StarterCommands extends BaseCommands {
         break
       case 'nuxt3-minimal-starter':
         await degit('nuxt/starter/#v3').clone(`${projectPath}`)
-
         break
       case 'vitesse-nuxt3':
         await degit('antfu/vitesse-nuxt3').clone(`${projectPath}`)
@@ -207,7 +206,7 @@ export class StarterCommands extends BaseCommands {
           title: 'Project Name',
           validation: s => this.validateProjectName(s, folderPath),
           value: defaultName,
-          enableSetting: template.id === 'create-vue' || template.id === 'nuxt3-minimal-starter',
+          enableSetting: true,
         },
       )
 
@@ -233,10 +232,48 @@ export class StarterCommands extends BaseCommands {
       return `A project with this name already exists within the selected directory`
   }
 
+  private getGlobalSettings(): PickableSetting[] {
+    return [
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Global Settings',
+      },
+      {
+        currentValue: config.globalNeedsGitInit ? 'Yes' : 'No',
+        description: config.globalNeedsGitInit ? 'Yes' : 'No',
+        detail: '',
+        label: 'Initialize git repository?',
+        setValue: (newValue: boolean) => config.setGlobalNeedsGitInit(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.globalNeedsInstall ? 'Yes' : 'No',
+        description: config.globalNeedsInstall ? 'Yes' : 'No',
+        detail: '',
+        label: 'Install project dependencies?',
+        setValue: (newValue: boolean) => config.setGlobalNeedsInstall(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.globalPackageManager || 'pnpm',
+        description: config.globalPackageManager || 'pnpm',
+        detail: '',
+        enumValues: ['pnpm', 'npm', 'yarn', 'bun'],
+        label: 'Package manager choice?',
+        setValue: (newValue: 'pnpm' | 'npm' | 'yarn' | 'bun') => config.setGlobalPackageManager(newValue),
+        settingKind: 'ENUM',
+      },
+    ]
+  }
+
   private getCurrentCreateSettings(template: ProjectTemplate): PickableSetting[] {
     switch (template.id) {
       case 'create-vue':
         const createVueSettings: PickableSetting[] = [
+          {
+            kind: QuickPickItemKind.Separator,
+            label: 'Create Vue',
+          },
           {
             currentValue: config.createVueNeedsTypeScript ? 'Yes' : 'No',
             description: config.createVueNeedsTypeScript ? 'Yes' : 'No',
@@ -308,37 +345,9 @@ export class StarterCommands extends BaseCommands {
             },
           )
         }
-        return createVueSettings
-      case 'nuxt3-minimal-starter':
-        return [
-          {
-            currentValue: config.nuxt3MinimalStarterNeedsGitInit ? 'Yes' : 'No',
-            description: config.nuxt3MinimalStarterNeedsGitInit ? 'Yes' : 'No',
-            detail: '',
-            label: 'Initialize git repository?',
-            setValue: (newValue: boolean) => config.setNuxt3MinimalStarterNeedsGitInit(newValue),
-            settingKind: 'BOOL',
-          },
-          {
-            currentValue: config.nuxt3MinimalStarterNeedsInstall ? 'Yes' : 'No',
-            description: config.nuxt3MinimalStarterNeedsInstall ? 'Yes' : 'No',
-            detail: '',
-            label: 'Install project dependencies?',
-            setValue: (newValue: boolean) => config.setNuxt3MinimalStarterNeedsInstall(newValue),
-            settingKind: 'BOOL',
-          },
-          {
-            currentValue: config.nuxt3MinimalStarterPackageManager || 'pnpm',
-            description: config.nuxt3MinimalStarterPackageManager || 'pnpm',
-            detail: '',
-            enumValues: ['pnpm', 'npm', 'yarn', 'bun'],
-            label: 'Package manager choice?',
-            setValue: (newValue: 'pnpm' | 'npm' | 'yarn' | 'bun') => config.setNuxt3MinimalStarterPackageManager(newValue),
-            settingKind: 'ENUM',
-          },
-        ]
+        return [...createVueSettings, ...this.getGlobalSettings()]
       default:
-        return []
+        return [...this.getGlobalSettings()]
     }
   }
 }

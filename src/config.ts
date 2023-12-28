@@ -47,10 +47,10 @@ class Config {
   get createVueEndToEndTestingSolution(): 'Cypress' | 'Nightwatch' | 'Playwright' | 'No' { return this.getConfig<'Cypress' | 'Nightwatch' | 'Playwright' | 'No'>('createVue.endToEndTestingSolution', 'Cypress') }
   get createVueNeedsEslint(): boolean { return this.getConfig<boolean>('createVue.needsEslint', true) }
   get createVueNeedsPrettier(): boolean { return this.getConfig<boolean>('createVue.needsPrettier', true) }
-  // nuxt3 minimal starter
-  get nuxt3MinimalStarterNeedsGitInit(): boolean { return this.getConfig<boolean>('nuxt3MinimalStarter.needsGitInit', true) }
-  get nuxt3MinimalStarterNeedsInstall(): boolean { return this.getConfig<boolean>('nuxt3MinimalStarter.needsInstall', true) }
-  get nuxt3MinimalStarterPackageManager(): 'pnpm' | 'npm' | 'yarn' | 'bun' { return this.getConfig<'pnpm' | 'npm' | 'yarn' | 'bun'>('nuxt3MinimalStarter.packageManager', 'pnpm') }
+  // global settings
+  get globalNeedsGitInit(): boolean { return this.getConfig<boolean>('globalSettings.needsGitInit', true) }
+  get globalNeedsInstall(): boolean { return this.getConfig<boolean>('globalSettings.needsInstall', true) }
+  get globalPackageManager(): 'pnpm' | 'npm' | 'yarn' | 'bun' { return this.getConfig<'pnpm' | 'npm' | 'yarn' | 'bun'>('globalSettings.packageManager', 'pnpm') }
 
   // create vue
   public setCreateVueNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig('createVue.needsTypeScript', value, ConfigurationTarget.Global) }
@@ -61,10 +61,10 @@ class Config {
   public setCreateVueEndToEndTestingSolution(value: 'Cypress' | 'Nightwatch' | 'Playwright' | 'No'): Promise<void> { return this.setConfig('createVue.endToEndTestingSolution', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsEslint(value: boolean): Promise<void> { return this.setConfig('createVue.needsEslint', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsPrettier(value: boolean): Promise<void> { return this.setConfig('createVue.needsPrettier', value, ConfigurationTarget.Global) }
-  // nuxt3 minimal starter
-  public setNuxt3MinimalStarterNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('nuxt3MinimalStarter.needsGitInit', value, ConfigurationTarget.Global) }
-  public setNuxt3MinimalStarterNeedsInstall(value: boolean): Promise<void> { return this.setConfig('nuxt3MinimalStarter.needsInstall', value, ConfigurationTarget.Global) }
-  public setNuxt3MinimalStarterPackageManager(value: 'pnpm' | 'npm' | 'yarn' | 'bun'): Promise<void> { return this.setConfig('nuxt3MinimalStarter.packageManager', value, ConfigurationTarget.Global) }
+  // global settings
+  public setGlobalNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsGitInit', value, ConfigurationTarget.Global) }
+  public setGlobalNeedsInstall(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsInstall', value, ConfigurationTarget.Global) }
+  public setGlobalPackageManager(value: 'pnpm' | 'npm' | 'yarn' | 'bun'): Promise<void> { return this.setConfig('globalSettings.packageManager', value, ConfigurationTarget.Global) }
 
   public for(uri?: Uri): ResourceConfig {
     return new ResourceConfig(uri)

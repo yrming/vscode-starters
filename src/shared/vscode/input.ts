@@ -92,7 +92,7 @@ export async function editSetting(setting: PickableSetting) {
     case 'STRING':
       const stringResult = await vs.window.showInputBox({ prompt, title, value: value as string | undefined })
       if (stringResult !== undefined)
-        await setting.setValue(stringResult)
+        await setting.setValue!(stringResult)
       break
     case 'ENUM': {
       const quickPick = vs.window.createQuickPick()
@@ -110,7 +110,7 @@ export async function editSetting(setting: PickableSetting) {
       quickPick.dispose()
 
       if (enumResult !== undefined)
-        await setting.setValue(enumResult)
+        await setting.setValue!(enumResult)
       break
     }
     case 'MULTI_ENUM': {
@@ -120,13 +120,13 @@ export async function editSetting(setting: PickableSetting) {
       quickPick.placeholder = placeholder
       quickPick.title = title
       const items: vs.QuickPickItem[] = []
-      for (const group of setting.enumValues) {
+      for (const group of setting.enumValues!) {
         items.push({ label: group.group, kind: vs.QuickPickItemKind.Separator } as vs.QuickPickItem)
         for (const value of group.values)
           items.push({ label: value } as vs.QuickPickItem)
       }
       quickPick.items = items
-      quickPick.selectedItems = quickPick.items.filter(item => setting.currentValue.find(current => current === item.label))
+      quickPick.selectedItems = quickPick.items.filter(item => setting.currentValue!.find(current => current === item.label))
 
       const accepted = await new Promise<boolean>((resolve) => {
         quickPick.onDidAccept(() => resolve(true))
@@ -136,7 +136,7 @@ export async function editSetting(setting: PickableSetting) {
       quickPick.dispose()
 
       if (accepted)
-        await setting.setValue(quickPick.selectedItems.map(item => item.label))
+        await setting.setValue!(quickPick.selectedItems.map(item => item.label))
       break
     }
     case 'BOOL':
@@ -148,13 +148,13 @@ export async function editSetting(setting: PickableSetting) {
         { placeHolder: placeholder, title },
       )
       if (boolResult !== undefined)
-        await setting.setValue(boolResult.label === 'Yes')
+        await setting.setValue!(boolResult.label === 'Yes')
       break
   }
 }
 
 type UserInputOrSettings = { value: string } | 'SETTINGS'
-export type PickableSetting = vs.QuickPickItem & ({
+export type PickableSetting = vs.QuickPickItem & Partial<({
   settingKind: 'STRING' | 'ENUM' | 'BOOL'
   currentValue: any
   setValue: (newValue: any) => Promise<void>
@@ -164,4 +164,4 @@ export type PickableSetting = vs.QuickPickItem & ({
   currentValue: any[]
   setValue: (newValue: any[]) => Promise<void>
   enumValues: Array<{ group?: string, values: string[] }>
-})
+})>
