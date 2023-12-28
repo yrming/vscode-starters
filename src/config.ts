@@ -38,6 +38,7 @@ class Config {
 
   get projectSearchDepth(): number { return this.getConfig<number>('projectSearchDepth', 5) }
 
+  // create vue
   get createVueNeedsTypeScript(): boolean { return this.getConfig<boolean>('createVue.needsTypeScript', true) }
   get createVueNeedsJsx(): boolean { return this.getConfig<boolean>('createVue.needsJsx', true) }
   get createVueNeedsRouter(): boolean { return this.getConfig<boolean>('createVue.needsRouter', true) }
@@ -46,7 +47,12 @@ class Config {
   get createVueEndToEndTestingSolution(): 'Cypress' | 'Nightwatch' | 'Playwright' | 'No' { return this.getConfig<'Cypress' | 'Nightwatch' | 'Playwright' | 'No'>('createVue.endToEndTestingSolution', 'Cypress') }
   get createVueNeedsEslint(): boolean { return this.getConfig<boolean>('createVue.needsEslint', true) }
   get createVueNeedsPrettier(): boolean { return this.getConfig<boolean>('createVue.needsPrettier', true) }
+  // nuxt3 minimal starter
+  get nuxt3MinimalStarterNeedsGitInit(): boolean { return this.getConfig<boolean>('nuxt3MinimalStarter.needsGitInit', true) }
+  get nuxt3MinimalStarterNeedsInstall(): boolean { return this.getConfig<boolean>('nuxt3MinimalStarter.needsInstall', true) }
+  get nuxt3MinimalStarterPackageManager(): 'pnpm' | 'npm' | 'yarn' | 'bun' { return this.getConfig<'pnpm' | 'npm' | 'yarn' | 'bun'>('nuxt3MinimalStarter.packageManager', 'pnpm') }
 
+  // create vue
   public setCreateVueNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig('createVue.needsTypeScript', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsJsx(value: boolean): Promise<void> { return this.setConfig('createVue.needsJsx', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsRouter(value: boolean): Promise<void> { return this.setConfig('createVue.needsRouter', value, ConfigurationTarget.Global) }
@@ -55,6 +61,10 @@ class Config {
   public setCreateVueEndToEndTestingSolution(value: 'Cypress' | 'Nightwatch' | 'Playwright' | 'No'): Promise<void> { return this.setConfig('createVue.endToEndTestingSolution', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsEslint(value: boolean): Promise<void> { return this.setConfig('createVue.needsEslint', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsPrettier(value: boolean): Promise<void> { return this.setConfig('createVue.needsPrettier', value, ConfigurationTarget.Global) }
+  // nuxt3 minimal starter
+  public setNuxt3MinimalStarterNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('nuxt3MinimalStarter.needsGitInit', value, ConfigurationTarget.Global) }
+  public setNuxt3MinimalStarterNeedsInstall(value: boolean): Promise<void> { return this.setConfig('nuxt3MinimalStarter.needsInstall', value, ConfigurationTarget.Global) }
+  public setNuxt3MinimalStarterPackageManager(value: 'pnpm' | 'npm' | 'yarn' | 'bun'): Promise<void> { return this.setConfig('nuxt3MinimalStarter.packageManager', value, ConfigurationTarget.Global) }
 
   public for(uri?: Uri): ResourceConfig {
     return new ResourceConfig(uri)

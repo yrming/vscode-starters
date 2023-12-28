@@ -2,8 +2,8 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starter Templates",
-  "version": "0.1.6",
-  "description": "Create a project quickly and easily in VSCode",
+  "version": "0.2.0",
+  "description": "Kickstart your project with a Starter Template in VSCode",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -86,6 +86,35 @@
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Prettier for code formatting?",
+            "scope": "window"
+          }
+        }
+      },
+      {
+        "title": "Nuxt3 Minimal Starter(Official)",
+        "order": 2,
+        "properties": {
+          "starterTemplates.nuxt3MinimalStarter.needsGitInit": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Initialize git repository",
+            "scope": "window"
+          },
+          "starterTemplates.nuxt3MinimalStarter.needsInstall": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Install project dependencies",
+            "scope": "window"
+          },
+          "starterTemplates.nuxt3MinimalStarter.packageManager": {
+            "enum": [
+              "pnpm",
+              "npm",
+              "yarn",
+              "bun"
+            ],
+            "default": "pnpm",
+            "description": "Package manager choice",
             "scope": "window"
           }
         }

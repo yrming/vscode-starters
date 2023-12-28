@@ -71,6 +71,10 @@ export class StarterCommands extends BaseCommands {
       case 'vitesse-lite':
         await degit('antfu/vitesse-lite').clone(`${projectPath}`)
         break
+      case 'nuxt3-minimal-starter':
+        await degit('nuxt/starter/#v3').clone(`${projectPath}`)
+
+        break
       case 'vitesse-nuxt3':
         await degit('antfu/vitesse-nuxt3').clone(`${projectPath}`)
         break
@@ -127,11 +131,11 @@ export class StarterCommands extends BaseCommands {
         kind: QuickPickItemKind.Separator,
         label: 'Nuxt',
       },
-      // {
-      //   label: "Nuxi(Official)",
-      //   detail: "⚡️ Nuxt Generation CLI Experience",
-      //   template: { id: "nuxi", defaultProjectName: 'nuxt-project' },
-      // },
+      {
+        label: 'Nuxt3 Minimal Starter(Official)',
+        detail: 'Create a new Nuxt project, module, layer or start from a theme with our collection of starters.',
+        template: { id: 'nuxt3-minimal-starter', defaultProjectName: 'nuxt-project' },
+      },
       {
         label: 'Vitesse Nuxt3(Anthony Fu)',
         detail: 'Vitesse for Nuxt 3 🏔💚⚡️',
@@ -203,7 +207,7 @@ export class StarterCommands extends BaseCommands {
           title: 'Project Name',
           validation: s => this.validateProjectName(s, folderPath),
           value: defaultName,
-          enableSetting: template.id === 'create-vue',
+          enableSetting: template.id === 'create-vue' || template.id === 'nuxt3-minimal-starter',
         },
       )
 
@@ -304,9 +308,35 @@ export class StarterCommands extends BaseCommands {
             },
           )
         }
-
         return createVueSettings
-
+      case 'nuxt3-minimal-starter':
+        return [
+          {
+            currentValue: config.nuxt3MinimalStarterNeedsGitInit ? 'Yes' : 'No',
+            description: config.nuxt3MinimalStarterNeedsGitInit ? 'Yes' : 'No',
+            detail: '',
+            label: 'Initialize git repository?',
+            setValue: (newValue: boolean) => config.setNuxt3MinimalStarterNeedsGitInit(newValue),
+            settingKind: 'BOOL',
+          },
+          {
+            currentValue: config.nuxt3MinimalStarterNeedsInstall ? 'Yes' : 'No',
+            description: config.nuxt3MinimalStarterNeedsInstall ? 'Yes' : 'No',
+            detail: '',
+            label: 'Install project dependencies?',
+            setValue: (newValue: boolean) => config.setNuxt3MinimalStarterNeedsInstall(newValue),
+            settingKind: 'BOOL',
+          },
+          {
+            currentValue: config.nuxt3MinimalStarterPackageManager || 'pnpm',
+            description: config.nuxt3MinimalStarterPackageManager || 'pnpm',
+            detail: '',
+            enumValues: ['pnpm', 'npm', 'yarn', 'bun'],
+            label: 'Package manager choice?',
+            setValue: (newValue: 'pnpm' | 'npm' | 'yarn' | 'bun') => config.setNuxt3MinimalStarterPackageManager(newValue),
+            settingKind: 'ENUM',
+          },
+        ]
       default:
         return []
     }

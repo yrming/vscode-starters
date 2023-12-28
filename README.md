@@ -4,7 +4,7 @@
 </p>
 
 <p align="center">
-Create a project quickly and easily in VSCode
+Kickstart your project with a Starter Template in VSCode
 </p>
 
 ## Why
@@ -17,11 +17,11 @@ Create a project quickly and easily in VSCode
 - [Create Vue](https://github.com/vuejs/create-vue) - The recommended way to start a Vite-powered Vue project.
 - [Vitesse](https://github.com/antfu/vitesse) - Opinionated starter template.
 - [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
+- [Nuxt3 Minimal Starter](https://github.com/nuxt/starter/tree/v3) - Create a new Nuxt project, module, layer or start from a theme with our collection of starters.
 - [Vitesse Nuxt3](https://github.com/antfu/vitesse-nuxt3) - Vitesse for Nuxt 3.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
 - ...
-
 
 ## License
 
