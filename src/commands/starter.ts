@@ -119,7 +119,7 @@ export class StarterCommands extends BaseCommands {
       {
         ignoreFocusOut: true,
         matchOnDescription: true,
-        placeHolder: 'Which Starter template?',
+        placeHolder: 'Which starter template?',
       },
     )
     if (!selectedTemplate?.template)
