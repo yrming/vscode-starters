@@ -128,24 +128,36 @@ export class StarterCommands extends BaseCommands {
   }
 
   private getTemplates(): Array<QuickPickItem & { template?: ProjectTemplate }> {
-    const templates = [
+    const templates: Array<QuickPickItem & { template?: ProjectTemplate }> = [
       {
         kind: QuickPickItemKind.Separator,
         label: 'Vue',
       },
       {
         label: 'Create Vue(Official)',
-        detail: '🛠️ The recommended way to start a Vite-powered Vue project',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/vue.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/vue.svg')),
+        },
+        detail: 'The recommended way to start a Vite-powered Vue project',
         template: { id: 'create-vue', defaultProjectName: 'vue-project' },
       },
       {
         label: 'Vitesse(Anthony Fu)',
-        detail: '🏕 Opinionated Vite + Vue Starter Template',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/vue.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/vue.svg')),
+        },
+        detail: 'Opinionated Vite + Vue Starter Template',
         template: { id: 'vitesse', defaultProjectName: 'vue-vitesse-project' },
       },
       {
         label: 'Vitesse Lite(Anthony Fu)',
-        detail: '⛺️ Lightweight version of Vitesse',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/vue.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/vue.svg')),
+        },
+        detail: 'Lightweight version of Vitesse',
         template: { id: 'vitesse-lite', defaultProjectName: 'vue-vitesse-lite-project' },
       },
       {
@@ -154,22 +166,21 @@ export class StarterCommands extends BaseCommands {
       },
       {
         label: 'Nuxt3 Minimal Starter(Official)',
-        detail: 'Create a new Nuxt project, module, layer or start from a theme with our collection of starters.',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+        },
+        detail: 'Create a new Nuxt project',
         template: { id: 'nuxt3-minimal-starter', defaultProjectName: 'nuxt-project' },
       },
       {
         label: 'Vitesse Nuxt3(Anthony Fu)',
-        detail: 'Vitesse for Nuxt 3 🏔💚⚡️',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+        },
+        detail: 'Vitesse for Nuxt 3',
         template: { id: 'vitesse-nuxt3', defaultProjectName: 'nuxt-vitesse-project' },
-      },
-      {
-        kind: QuickPickItemKind.Separator,
-        label: 'Web Extension',
-      },
-      {
-        label: 'Vitesse WebExt(Anthony Fu)',
-        detail: '⚡️ WebExtension Vite Starter Template',
-        template: { id: 'vitesse-webext', defaultProjectName: 'webext-vitesse-project' },
       },
       {
         kind: QuickPickItemKind.Separator,
@@ -177,8 +188,25 @@ export class StarterCommands extends BaseCommands {
       },
       {
         label: 'Starter TS(Anthony Fu)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/ts.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/ts.svg')),
+        },
         detail: 'Starter template for TypeScript library',
         template: { id: 'starter-ts', defaultProjectName: 'ts-library-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Web Extension',
+      },
+      {
+        label: 'Vitesse WebExt(Anthony Fu)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/web-ext.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/web-ext.svg')),
+        },
+        detail: 'WebExtension Vite Starter Template',
+        template: { id: 'vitesse-webext', defaultProjectName: 'webext-vitesse-project' },
       },
     ]
     return templates
