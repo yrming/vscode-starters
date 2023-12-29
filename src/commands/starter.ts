@@ -33,6 +33,12 @@ export class StarterCommands extends BaseCommands {
 
     const { templateId, projectName } = triggerData
     switch (templateId) {
+      case 'nuxt3-minimal-starter':
+        await degit('nuxt/starter/#v3').clone(`${projectPath}`)
+        break
+      case 'vitesse-nuxt3':
+        await degit('antfu/vitesse-nuxt3').clone(`${projectPath}`)
+        break
       case 'create-vue':
         chdir(projectPath)
         chdir('..')
@@ -71,12 +77,6 @@ export class StarterCommands extends BaseCommands {
         break
       case 'vitesse-lite':
         await degit('antfu/vitesse-lite').clone(`${projectPath}`)
-        break
-      case 'nuxt3-minimal-starter':
-        await degit('nuxt/starter/#v3').clone(`${projectPath}`)
-        break
-      case 'vitesse-nuxt3':
-        await degit('antfu/vitesse-nuxt3').clone(`${projectPath}`)
         break
       case 'vitesse-webext':
         await degit('antfu/vitesse-webext').clone(`${projectPath}`)
@@ -131,6 +131,28 @@ export class StarterCommands extends BaseCommands {
     const templates: Array<QuickPickItem & { template?: ProjectTemplate }> = [
       {
         kind: QuickPickItemKind.Separator,
+        label: 'Nuxt',
+      },
+      {
+        label: 'Nuxt3 Minimal Starter(Official)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+        },
+        detail: 'Create a new Nuxt project',
+        template: { id: 'nuxt3-minimal-starter', defaultProjectName: 'nuxt-project' },
+      },
+      {
+        label: 'Vitesse Nuxt3(Anthony Fu)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
+        },
+        detail: 'Vitesse for Nuxt 3',
+        template: { id: 'vitesse-nuxt3', defaultProjectName: 'nuxt-vitesse-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
         label: 'Vue',
       },
       {
@@ -159,28 +181,6 @@ export class StarterCommands extends BaseCommands {
         },
         detail: 'Lightweight version of Vitesse',
         template: { id: 'vitesse-lite', defaultProjectName: 'vue-vitesse-lite-project' },
-      },
-      {
-        kind: QuickPickItemKind.Separator,
-        label: 'Nuxt',
-      },
-      {
-        label: 'Nuxt3 Minimal Starter(Official)',
-        iconPath: {
-          dark: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
-          light: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
-        },
-        detail: 'Create a new Nuxt project',
-        template: { id: 'nuxt3-minimal-starter', defaultProjectName: 'nuxt-project' },
-      },
-      {
-        label: 'Vitesse Nuxt3(Anthony Fu)',
-        iconPath: {
-          dark: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
-          light: Uri.file(this.context.asAbsolutePath('resources/nuxt.svg')),
-        },
-        detail: 'Vitesse for Nuxt 3',
-        template: { id: 'vitesse-nuxt3', defaultProjectName: 'nuxt-vitesse-project' },
       },
       {
         kind: QuickPickItemKind.Separator,

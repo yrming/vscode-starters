@@ -14,11 +14,11 @@ Kickstart your project with a Starter Template in VSCode
 
 ## Support Templates
 
+- [Nuxt3 Minimal Starter](https://github.com/nuxt/starter/tree/v3) - Create a new Nuxt project.
+- [Vitesse Nuxt3](https://github.com/antfu/vitesse-nuxt3) - Vitesse for Nuxt 3.
 - [Create Vue](https://github.com/vuejs/create-vue) - The recommended way to start a Vite-powered Vue project.
 - [Vitesse](https://github.com/antfu/vitesse) - Opinionated starter template.
 - [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
-- [Nuxt3 Minimal Starter](https://github.com/nuxt/starter/tree/v3) - Create a new Nuxt project.
-- [Vitesse Nuxt3](https://github.com/antfu/vitesse-nuxt3) - Vitesse for Nuxt 3.
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
 - ...
