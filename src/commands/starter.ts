@@ -1,10 +1,10 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { chdir, cwd } from 'node:process'
-import type { QuickPickItem } from 'vscode'
+import type { InputBoxValidationMessage, QuickPickItem } from 'vscode'
 import { ProgressLocation, QuickPickItemKind, Uri, commands, window } from 'vscode'
 import degit from 'degit'
-import execa from 'execa'
+import { $ } from 'execa'
 import { installDependencies } from 'nypm'
 import type { Logger, ProjectTemplate, StarterCreateCommandArgs, StarterCreateTriggerData } from '../types'
 import { fsPath, nextAvailableFilename } from '../shared/utils/fs'
@@ -31,65 +31,60 @@ export class StarterCommands extends BaseCommands {
     if (!triggerData)
       return
 
-    const { templateId, projectName } = triggerData
-    switch (templateId) {
-      case 'nuxt3-minimal-starter':
-        await degit('nuxt/starter/#v3').clone(`${projectPath}`)
-        break
-      case 'vitesse-nuxt3':
-        await degit('antfu/vitesse-nuxt3').clone(`${projectPath}`)
-        break
-      case 'create-vue':
-        chdir(projectPath)
-        chdir('..')
-        const dir = cwd()
-        const args = ['--force']
-        if (config.createVueNeedsTypeScript)
-          args.push('--ts')
+    await window.withProgress({
+      location: ProgressLocation.Notification,
+    }, async (progress) => {
+      progress.report({
+        message: 'Creating project...',
+      })
 
-        if (config.createVueNeedsJsx)
-          args.push('--jsx')
+      const { templateId, projectName } = triggerData
+      chdir(projectPath!)
+      chdir('..')
+      const dir = cwd()
+      try {
+        switch (templateId) {
+          case 'nuxt3-minimal-starter':
+            await degit('nuxt/starter/#v3').clone(`${projectPath}`)
+            break
+          case 'vitesse-nuxt3':
+            await degit('antfu/vitesse-nuxt3').clone(`${projectPath}`)
+            break
+          case 'create-vue':
+            await this.handleCreateVue(projectName, dir)
+            break
+          case 'vitesse':
+            await degit('antfu/vitesse').clone(`${projectPath}`)
+            break
+          case 'vitesse-lite':
+            await degit('antfu/vitesse-lite').clone(`${projectPath}`)
+            break
+          case 'create-next-app':
+            await this.handleCreateNextApp(projectName)
+            break
+          case 'starter-ts':
+            await degit('antfu/starter-ts').clone(`${projectPath}`)
+            break
+          case 'vitesse-webext':
+            await degit('antfu/vitesse-webext').clone(`${projectPath}`)
+            break
 
-        if (config.createVueNeedsRouter)
-          args.push('--router')
-
-        if (config.createVueNeedsPinia)
-          args.push('--pinia')
-
-        if (config.createVueNeedsVitest)
-          args.push('--vitest')
-
-        if (config.createVueEndToEndTestingSolution !== 'No')
-          args.push(`--${config.createVueEndToEndTestingSolution.toLocaleLowerCase()}`)
-        else
-          args.push(`--tests false`)
-
-        if (config.createVueNeedsEslint) {
-          if (config.createVueNeedsPrettier)
-            args.push('--eslint-with-prettier')
-          else
-            args.push('--eslint')
+          default:
+            break
         }
-        await execa('npx', ['create-vue', projectName, dir, ...args])
-        break
-      case 'vitesse':
-        await degit('antfu/vitesse').clone(`${projectPath}`)
-        break
-      case 'vitesse-lite':
-        await degit('antfu/vitesse-lite').clone(`${projectPath}`)
-        break
-      case 'vitesse-webext':
-        await degit('antfu/vitesse-webext').clone(`${projectPath}`)
-        break
-      case 'starter-ts':
-        await degit('antfu/starter-ts').clone(`${projectPath}`)
-        break
+      }
+      catch (error) {
+        window.showErrorMessage('Failed to create prpject!')
+      }
 
-      default:
-        break
-    }
+      if (templateId !== 'create-next-app')
+        await this.handleCommonActions(projectPath!)
+    })
+  }
+
+  private async handleCommonActions(projectPath: string) {
     if (config.globalNeedsGitInit)
-      await execa('git', ['init', `${projectPath}`])
+      await $`git init ${projectPath!}`
 
     if (config.globalNeedsInstall) {
       await window.withProgress({
@@ -98,18 +93,92 @@ export class StarterCommands extends BaseCommands {
         progress.report({
           message: 'Installing dependencies...',
         })
-        await installDependencies({
-          cwd: projectPath,
-          silent: true,
-          packageManager: {
-            name: config.globalPackageManager,
-            command: config.globalPackageManager,
-          },
-        })
+        try {
+          await installDependencies({
+            cwd: projectPath,
+            silent: true,
+            packageManager: {
+              name: config.globalPackageManager,
+              command: config.globalPackageManager,
+            },
+          })
+        }
+        catch (error) {
+          window.showErrorMessage('Failed to install dependencies!')
+        }
       })
-      return 0
     }
-    return 0
+  }
+
+  private async handleCreateNextApp(projectName: string) {
+    const args = []
+    if (config.createNextAppNeedsTypeScript)
+      args.push('--ts')
+    else
+      args.push('--js')
+
+    if (config.createNextAppNeedsEslint)
+      args.push('--eslint')
+    else
+      args.push('--no-eslint')
+
+    if (config.createNextAppNeedsTailwind)
+      args.push('--tailwind')
+    else
+      args.push('--no-tailwind')
+
+    if (config.createNextAppNeedsSrcDirectory)
+      args.push('--src-dir')
+    else
+      args.push('--no-src-dir')
+
+    if (config.createNextAppNeedsAppRouter)
+      args.push('--app')
+    else
+      args.push('--no-app')
+
+    if (config.createNextAppCustomizeTheDefaultImportAlias) {
+      args.push('--import-alias')
+      args.push(config.createNextAppCustomizeTheDefaultImportAlias)
+    }
+    if (config.globalPackageManager)
+      args.push(`--use-${config.globalPackageManager}`)
+
+    await $`npx create-next-app ${projectName} ${args}`
+  }
+
+  private async handleCreateVue(projectName: string, dir: string) {
+    const args = []
+    args.push('--force')
+    if (config.createVueNeedsTypeScript)
+      args.push('--ts')
+
+    if (config.createVueNeedsJsx)
+      args.push('--jsx')
+
+    if (config.createVueNeedsRouter)
+      args.push('--router')
+
+    if (config.createVueNeedsPinia)
+      args.push('--pinia')
+
+    if (config.createVueNeedsVitest)
+      args.push('--vitest')
+
+    if (config.createVueEndToEndTestingSolution !== 'No')
+      args.push(`--${config.createVueEndToEndTestingSolution.toLocaleLowerCase()}`)
+
+    else
+      args.push(`--tests false`)
+
+    if (config.createVueNeedsEslint) {
+      if (config.createVueNeedsPrettier)
+        args.push('--eslint-with-prettier')
+
+      else
+        args.push('--eslint')
+    }
+    await $`npx create-vue ${projectName} ${dir} ${args}`
   }
 
   private async createProject() {
@@ -181,6 +250,19 @@ export class StarterCommands extends BaseCommands {
         },
         detail: 'Lightweight version of Vitesse',
         template: { id: 'vitesse-lite', defaultProjectName: 'vue-vitesse-lite-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Next',
+      },
+      {
+        label: 'Create Next App(Official)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/next.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/next.svg')),
+        },
+        detail: 'The easiest way to get started with Next.js',
+        template: { id: 'create-next-app', defaultProjectName: 'next-project' },
       },
       {
         kind: QuickPickItemKind.Separator,
@@ -282,6 +364,17 @@ export class StarterCommands extends BaseCommands {
       return `A project with this name already exists within the selected directory`
   }
 
+  private getCurrentCreateSettings(template: ProjectTemplate): PickableSetting[] {
+    switch (template.id) {
+      case 'create-vue':
+        return [...this.getCurrentCreateSettingsOfCreateVue(), ...this.getGlobalSettings()]
+      case 'create-next-app':
+        return this.getCurrentCreateSettingsOfCreateNextApp()
+      default:
+        return this.getGlobalSettings()
+    }
+  }
+
   private getGlobalSettings(): PickableSetting[] {
     return [
       {
@@ -316,89 +409,149 @@ export class StarterCommands extends BaseCommands {
     ]
   }
 
-  private getCurrentCreateSettings(template: ProjectTemplate): PickableSetting[] {
-    switch (template.id) {
-      case 'create-vue':
-        const createVueSettings: PickableSetting[] = [
-          {
-            kind: QuickPickItemKind.Separator,
-            label: 'Create Vue',
-          },
-          {
-            currentValue: config.createVueNeedsTypeScript ? 'Yes' : 'No',
-            description: config.createVueNeedsTypeScript ? 'Yes' : 'No',
-            detail: '',
-            label: 'Add TypeScript?',
-            setValue: (newValue: boolean) => config.setCreateVueNeedsTypeScript(newValue),
-            settingKind: 'BOOL',
-          },
-          {
-            currentValue: config.createVueNeedsJsx ? 'Yes' : 'No',
-            description: config.createVueNeedsJsx ? 'Yes' : 'No',
-            detail: '',
-            label: 'Add JSX Support?',
-            setValue: (newValue: boolean) => config.setCreateVueNeedsJsx(newValue),
-            settingKind: 'BOOL',
-          },
-          {
-            currentValue: config.createVueNeedsRouter ? 'Yes' : 'No',
-            description: config.createVueNeedsRouter ? 'Yes' : 'No',
-            detail: '',
-            label: 'Add Vue Router for Single Page Application development?',
-            setValue: (newValue: boolean) => config.setCreateVueNeedsRouter(newValue),
-            settingKind: 'BOOL',
-          },
-          {
-            currentValue: config.createVueNeedsPinia ? 'Yes' : 'No',
-            description: config.createVueNeedsPinia ? 'Yes' : 'No',
-            detail: '',
-            label: 'Add Pinia for state management?',
-            setValue: (newValue: boolean) => config.setCreateVueNeedsPinia(newValue),
-            settingKind: 'BOOL',
-          },
-          {
-            currentValue: config.createVueNeedsVitest ? 'Yes' : 'No',
-            description: config.createVueNeedsVitest ? 'Yes' : 'No',
-            detail: '',
-            label: 'Add Vitest for Unit Testing?',
-            setValue: (newValue: boolean) => config.setCreateVueNeedsVitest(newValue),
-            settingKind: 'BOOL',
-          },
-          {
-            currentValue: config.createVueEndToEndTestingSolution || 'Cypress',
-            description: config.createVueEndToEndTestingSolution || 'Cypress',
-            detail: '',
-            enumValues: ['Cypress', 'Nightwatch', 'Playwright', 'No'],
-            label: 'Add an End-to-End Testing Solution?',
-            setValue: (newValue: 'Cypress' | 'Nightwatch' | 'Playwright' | 'No') => config.setCreateVueEndToEndTestingSolution(newValue),
-            settingKind: 'ENUM',
-          },
-          {
-            currentValue: config.createVueNeedsEslint ? 'Yes' : 'No',
-            description: config.createVueNeedsEslint ? 'Yes' : 'No',
-            detail: '',
-            label: 'Add ESLint for code quality?',
-            setValue: (newValue: boolean) => config.setCreateVueNeedsEslint(newValue),
-            settingKind: 'BOOL',
-          },
-        ]
+  private getCurrentCreateSettingsOfCreateVue() {
+    const createVueSettings: PickableSetting[] = [
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Create Vue',
+      },
+      {
+        currentValue: config.createVueNeedsTypeScript ? 'Yes' : 'No',
+        description: config.createVueNeedsTypeScript ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add TypeScript?',
+        setValue: (newValue: boolean) => config.setCreateVueNeedsTypeScript(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createVueNeedsJsx ? 'Yes' : 'No',
+        description: config.createVueNeedsJsx ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add JSX Support?',
+        setValue: (newValue: boolean) => config.setCreateVueNeedsJsx(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createVueNeedsRouter ? 'Yes' : 'No',
+        description: config.createVueNeedsRouter ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add Vue Router for Single Page Application development?',
+        setValue: (newValue: boolean) => config.setCreateVueNeedsRouter(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createVueNeedsPinia ? 'Yes' : 'No',
+        description: config.createVueNeedsPinia ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add Pinia for state management?',
+        setValue: (newValue: boolean) => config.setCreateVueNeedsPinia(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createVueNeedsVitest ? 'Yes' : 'No',
+        description: config.createVueNeedsVitest ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add Vitest for Unit Testing?',
+        setValue: (newValue: boolean) => config.setCreateVueNeedsVitest(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createVueEndToEndTestingSolution || 'Cypress',
+        description: config.createVueEndToEndTestingSolution || 'Cypress',
+        detail: '',
+        enumValues: ['Cypress', 'Nightwatch', 'Playwright', 'No'],
+        label: 'Add an End-to-End Testing Solution?',
+        setValue: (newValue: 'Cypress' | 'Nightwatch' | 'Playwright' | 'No') => config.setCreateVueEndToEndTestingSolution(newValue),
+        settingKind: 'ENUM',
+      },
+      {
+        currentValue: config.createVueNeedsEslint ? 'Yes' : 'No',
+        description: config.createVueNeedsEslint ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add ESLint for code quality?',
+        setValue: (newValue: boolean) => config.setCreateVueNeedsEslint(newValue),
+        settingKind: 'BOOL',
+      },
+    ]
 
-        if (config.createVueNeedsEslint) {
-          createVueSettings.push(
-            {
-              currentValue: config.createVueNeedsPrettier ? 'Yes' : 'No',
-              description: config.createVueNeedsPrettier ? 'Yes' : 'No',
-              detail: '',
-              label: 'Add Prettier for code formatting?',
-              setValue: (newValue: boolean) => config.setCreateVueNeedsPrettier(newValue),
-              settingKind: 'BOOL',
-            },
-          )
-        }
-        return [...createVueSettings, ...this.getGlobalSettings()]
-      default:
-        return [...this.getGlobalSettings()]
+    if (config.createVueNeedsEslint) {
+      createVueSettings.push(
+        {
+          currentValue: config.createVueNeedsPrettier ? 'Yes' : 'No',
+          description: config.createVueNeedsPrettier ? 'Yes' : 'No',
+          detail: '',
+          label: 'Add Prettier for code formatting?',
+          setValue: (newValue: boolean) => config.setCreateVueNeedsPrettier(newValue),
+          settingKind: 'BOOL',
+        },
+      )
     }
+    return createVueSettings
+  }
+
+  private getCurrentCreateSettingsOfCreateNextApp() {
+    const createNextAppSettings: PickableSetting[] = [
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Create Next App',
+      },
+      {
+        currentValue: config.createNextAppNeedsTypeScript ? 'Yes' : 'No',
+        description: config.createNextAppNeedsTypeScript ? 'Yes' : 'No',
+        detail: '',
+        label: 'Would you like to use TypeScript?',
+        setValue: (newValue: boolean) => config.setCreateNextAppNeedsTypeScript(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createNextAppNeedsEslint ? 'Yes' : 'No',
+        description: config.createNextAppNeedsEslint ? 'Yes' : 'No',
+        detail: '',
+        label: 'Would you like to use ESLint?',
+        setValue: (newValue: boolean) => config.setCreateNextAppNeedsEslint(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createNextAppNeedsTailwind ? 'Yes' : 'No',
+        description: config.createNextAppNeedsTailwind ? 'Yes' : 'No',
+        detail: '',
+        label: 'Would you like to use Tailwind CSS?',
+        setValue: (newValue: boolean) => config.setCreateNextAppNeedsTailwind(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createNextAppNeedsSrcDirectory ? 'Yes' : 'No',
+        description: config.createNextAppNeedsSrcDirectory ? 'Yes' : 'No',
+        detail: '',
+        label: 'Would you like to use `src/` directory?',
+        setValue: (newValue: boolean) => config.setCreateNextAppNeedsSrcDirectory(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createNextAppNeedsAppRouter ? 'Yes' : 'No',
+        description: config.createNextAppNeedsAppRouter ? 'Yes' : 'No',
+        detail: '',
+        label: 'Would you like to use App Router? (recommended)',
+        setValue: (newValue: boolean) => config.setCreateNextAppNeedsAppRouter(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createNextAppCustomizeTheDefaultImportAlias || '@/*',
+        description: config.createNextAppCustomizeTheDefaultImportAlias || '@/*',
+        detail: 'Import alias must follow the pattern <prefix>/*',
+        label: 'What import alias would you like configured?',
+        setValue: (newValue: string) => config.setCreateNextAppCustomizeTheDefaultImportAlias(newValue),
+        settingKind: 'STRING',
+        validation: s => this.validateCreateNextAppImportAlias(s),
+      },
+    ]
+    return createNextAppSettings
+  }
+
+  private validateCreateNextAppImportAlias(input: string): string | InputBoxValidationMessage | undefined | null |
+    Thenable<string | InputBoxValidationMessage | undefined | null> {
+    if (!/^.+\/\*$/.test(input))
+      return 'Import alias must follow the pattern <prefix>/*'
   }
 }
 

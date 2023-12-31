@@ -47,6 +47,13 @@ class Config {
   get createVueEndToEndTestingSolution(): 'Cypress' | 'Nightwatch' | 'Playwright' | 'No' { return this.getConfig<'Cypress' | 'Nightwatch' | 'Playwright' | 'No'>('createVue.endToEndTestingSolution', 'Cypress') }
   get createVueNeedsEslint(): boolean { return this.getConfig<boolean>('createVue.needsEslint', true) }
   get createVueNeedsPrettier(): boolean { return this.getConfig<boolean>('createVue.needsPrettier', true) }
+  // create next app
+  get createNextAppNeedsTypeScript(): boolean { return this.getConfig<boolean>('createNextApp.needsTypeScript', true) }
+  get createNextAppNeedsEslint(): boolean { return this.getConfig<boolean>('createNextApp.needsEslint', true) }
+  get createNextAppNeedsTailwind(): boolean { return this.getConfig<boolean>('createNextApp.needsTailwind', true) }
+  get createNextAppNeedsSrcDirectory(): boolean { return this.getConfig<boolean>('createNextApp.needsSrcDirectory', true) }
+  get createNextAppNeedsAppRouter(): boolean { return this.getConfig<boolean>('createNextApp.needsAppRouter', true) }
+  get createNextAppCustomizeTheDefaultImportAlias(): string { return this.getConfig<string>('createNextApp.customizeTheDefaultImportAlias', '@/*') }
   // global settings
   get globalNeedsGitInit(): boolean { return this.getConfig<boolean>('globalSettings.needsGitInit', true) }
   get globalNeedsInstall(): boolean { return this.getConfig<boolean>('globalSettings.needsInstall', true) }
@@ -61,6 +68,13 @@ class Config {
   public setCreateVueEndToEndTestingSolution(value: 'Cypress' | 'Nightwatch' | 'Playwright' | 'No'): Promise<void> { return this.setConfig('createVue.endToEndTestingSolution', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsEslint(value: boolean): Promise<void> { return this.setConfig('createVue.needsEslint', value, ConfigurationTarget.Global) }
   public setCreateVueNeedsPrettier(value: boolean): Promise<void> { return this.setConfig('createVue.needsPrettier', value, ConfigurationTarget.Global) }
+  // create next app
+  public setCreateNextAppNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig('createNextApp.needsTypeScript', value, ConfigurationTarget.Global) }
+  public setCreateNextAppNeedsEslint(value: boolean): Promise<void> { return this.setConfig('createNextApp.needsEslint', value, ConfigurationTarget.Global) }
+  public setCreateNextAppNeedsTailwind(value: boolean): Promise<void> { return this.setConfig('createNextApp.needsTailwind', value, ConfigurationTarget.Global) }
+  public setCreateNextAppNeedsSrcDirectory(value: boolean): Promise<void> { return this.setConfig('createNextApp.needsSrcDirectory', value, ConfigurationTarget.Global) }
+  public setCreateNextAppNeedsAppRouter(value: boolean): Promise<void> { return this.setConfig('createNextApp.needsAppRouter', value, ConfigurationTarget.Global) }
+  public setCreateNextAppCustomizeTheDefaultImportAlias(value: string): Promise<void> { return this.setConfig('createNextApp.customizeTheDefaultImportAlias', value, ConfigurationTarget.Global) }
   // global settings
   public setGlobalNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsGitInit', value, ConfigurationTarget.Global) }
   public setGlobalNeedsInstall(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsInstall', value, ConfigurationTarget.Global) }

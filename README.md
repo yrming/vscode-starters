@@ -19,6 +19,7 @@ Kickstart your project with a Starter Template in VSCode
 - [Create Vue](https://github.com/vuejs/create-vue) - The recommended way to start a Vite-powered Vue project.
 - [Vitesse](https://github.com/antfu/vitesse) - Opinionated starter template.
 - [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
+- [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) - The easiest way to get started with Next.js.
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
 - ...

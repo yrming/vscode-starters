@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starter Templates",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Kickstart your project with a Starter Template in VSCode",
   "license": "MIT",
   "repository": {
@@ -118,6 +118,50 @@
             "scope": "window"
           }
         }
+      },
+      {
+        "title": "Create Next App(Official)",
+        "order": 3,
+        "properties": {
+          "starterTemplates.createNextApp.needsTypeScript": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Would you like to use TypeScript?",
+            "scope": "window"
+          },
+          "starterTemplates.createNextApp.needsEslint": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Would you like to use ESLint?",
+            "scope": "window"
+          },
+          "starterTemplates.createNextApp.needsTailwind": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Would you like to use Tailwind CSS?",
+            "scope": "window"
+          },
+          "starterTemplates.createNextApp.needsSrcDirectory": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Would you like to use `src/` directory?",
+            "scope": "window"
+          },
+          "starterTemplates.createNextApp.needsAppRouter": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Would you like to use App Router? (recommended)",
+            "scope": "window"
+          },
+          "starterTemplates.createNextApp.customizeTheDefaultImportAlias": {
+            "type": "string",
+            "default": "@/*",
+            "pattern": "^.+\\/\\*$",
+            "minLength": 3,
+            "description": "What import alias would you like configured? (Import alias must follow the pattern <prefix>/*)",
+            "scope": "window"
+          }
+        }
       }
     ]
   },
@@ -143,7 +187,7 @@
     "@vscode/test-electron": "^2.3.8",
     "degit": "^2.8.4",
     "eslint": "^8.54.0",
-    "execa": "^5.1.1",
+    "execa": "^8.0.1",
     "nypm": "^0.3.3",
     "tsup": "^8.0.1",
     "typescript": "^5.3.2",

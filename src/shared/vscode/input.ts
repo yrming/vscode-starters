@@ -88,9 +88,10 @@ export async function editSetting(setting: PickableSetting) {
   const prompt = setting.detail
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const value = setting.currentValue
+  const validation = setting.validation
   switch (setting.settingKind) {
     case 'STRING':
-      const stringResult = await vs.window.showInputBox({ prompt, title, value: value as string | undefined })
+      const stringResult = await vs.window.showInputBox({ prompt, title, value: value as string | undefined, validateInput: validation })
       if (stringResult !== undefined)
         await setting.setValue!(stringResult)
       break
@@ -159,9 +160,13 @@ export type PickableSetting = vs.QuickPickItem & Partial<({
   currentValue: any
   setValue: (newValue: any) => Promise<void>
   enumValues?: string[]
+  validation?: (s: string) => string | vs.InputBoxValidationMessage | undefined | null |
+  Thenable<string | vs.InputBoxValidationMessage | undefined | null>
 } | {
   settingKind: 'MULTI_ENUM'
   currentValue: any[]
   setValue: (newValue: any[]) => Promise<void>
   enumValues: Array<{ group?: string, values: string[] }>
+  validation?: (s: string) => string | vs.InputBoxValidationMessage | undefined | null |
+  Thenable<string | vs.InputBoxValidationMessage | undefined | null>
 })>

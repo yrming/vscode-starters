@@ -34,9 +34,8 @@ async function handleStarterCreateTrigger(wf: WorkspaceFolder): Promise<void> {
 
   try {
     markProjectCreationStarted()
-    const success = await createStarterProject(fsPath(wf.uri), json)
-    if (success)
-      handleStarterWelcome(wf, json)
+    await createStarterProject(fsPath(wf.uri), json)
+    handleStarterWelcome(wf, json)
   }
   finally {
     markProjectCreationEnded()
