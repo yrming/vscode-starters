@@ -31,7 +31,7 @@ export class StarterCommands extends BaseCommands {
     if (!triggerData)
       return
 
-    await window.withProgress({
+    const code = await window.withProgress({
       location: ProgressLocation.Notification,
     }, async (progress) => {
       progress.report({
@@ -72,14 +72,19 @@ export class StarterCommands extends BaseCommands {
           default:
             break
         }
+
+        if (templateId !== 'create-next-app')
+          await this.handleCommonActions(projectPath!)
+
+        return 0
       }
       catch (error) {
         window.showErrorMessage('Failed to create prpject!')
+        return -1
       }
-
-      if (templateId !== 'create-next-app')
-        await this.handleCommonActions(projectPath!)
     })
+
+    return code
   }
 
   private async handleCommonActions(projectPath: string) {
@@ -104,7 +109,7 @@ export class StarterCommands extends BaseCommands {
           })
         }
         catch (error) {
-          window.showErrorMessage('Failed to install dependencies!')
+          window.showWarningMessage('Failed to install dependencies!')
         }
       })
     }
