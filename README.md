@@ -14,7 +14,7 @@ Kickstart your project with a Starter Template in VSCode
 
 ## Usage
 <p>
-<table><tr><td>Run <b><code>Starter Template: New Project</code></b> command to create your new project</tr></td></table>
+<table><tr><td>Run <b><code>Starter Templates: New Project</code></b> command to create your new project</tr></td></table>
 </p>
 
 <p align="center">
