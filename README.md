@@ -12,6 +12,17 @@ Kickstart your project with a Starter Template in VSCode
 - As a front-end developer, everytime before I create a new project, I have to open a terminal, enter some commands recommended in the front-end framework documentation; sometimes I even forget these commands. This whole process apparently needs more efficiency.
 - During the development of Flutter, I found that I could quickly create a Flutter project through the Dart extension for VSCode, so I developed this extension in order to do the same when creating some front-end projects.
 
+## Usage
+<p>
+<table><tr><td>Run <b><code>Starter Template: New Project</code></b> command to create your new project</tr></td></table>
+</p>
+
+<p align="center">
+<img width="1192" alt="Preview 1" src="./resources/preview1.png">
+<img width="1192" alt="Preview 2" src="./resources/preview2.png">
+</p>
+
+
 ## Support Templates
 
 - [Nuxt3 Minimal Starter](https://github.com/nuxt/starter/tree/v3) - Create a new Nuxt project.
