@@ -3,6 +3,7 @@ import * as path from 'node:path'
 import { chdir, cwd } from 'node:process'
 import type { InputBoxValidationMessage, QuickPickItem } from 'vscode'
 import { ProgressLocation, QuickPickItemKind, Uri, commands, window } from 'vscode'
+import { create } from 'create-svelte'
 import degit from 'degit'
 import { $ } from 'execa'
 import { installDependencies } from 'nypm'
@@ -62,6 +63,9 @@ export class StarterCommands extends BaseCommands {
           case 'create-next-app':
             await this.handleCreateNextApp(projectName)
             break
+          case 'create-svelte':
+            await this.handleCreateSvelte(projectName, projectPath!)
+            break
           case 'starter-ts':
             await degit('antfu/starter-ts').clone(`${projectPath}`)
             break
@@ -82,6 +86,7 @@ export class StarterCommands extends BaseCommands {
         return 0
       }
       catch (error) {
+        console.log(error)
         window.showErrorMessage('Failed to create prpject!')
         return -1
       }
@@ -116,6 +121,19 @@ export class StarterCommands extends BaseCommands {
         }
       })
     }
+  }
+
+  private async handleCreateSvelte(projectName: string, projectPath: string) {
+    await create(projectPath, {
+      name: projectName,
+      template: config.createSvelteWhichAppTemplate,
+      types: config.createSvelteAddTypeCheckingWith === 'no' ? null : config.createSvelteAddTypeCheckingWith,
+      eslint: config.createSvelteNeedsEslint,
+      prettier: config.createSvelteNeedsPrettier,
+      playwright: config.createSvelteNeedsPlaywright,
+      vitest: config.createSvelteNeedsVitest,
+      svelte5: config.createSvelteTrySvelte5Preview,
+    })
   }
 
   private async handleCreateNextApp(projectName: string) {
@@ -274,6 +292,19 @@ export class StarterCommands extends BaseCommands {
       },
       {
         kind: QuickPickItemKind.Separator,
+        label: 'Svelte',
+      },
+      {
+        label: 'Create Svelte(Official)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/svelte.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/svelte.svg')),
+        },
+        detail: 'Create new SvelteKit projects',
+        template: { id: 'create-svelte', defaultProjectName: 'svelte-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
         label: 'TypeScript Library',
       },
       {
@@ -391,6 +422,8 @@ export class StarterCommands extends BaseCommands {
         return [...this.getCurrentCreateSettingsOfCreateVue(), ...this.getGlobalSettings()]
       case 'create-next-app':
         return this.getCurrentCreateSettingsOfCreateNextApp()
+      case 'create-svelte':
+        return [...this.getCurrentCreateSettingsOfCreateSvelte(), ...this.getGlobalSettings()]
       default:
         return this.getGlobalSettings()
     }
@@ -567,6 +600,74 @@ export class StarterCommands extends BaseCommands {
       },
     ]
     return createNextAppSettings
+  }
+
+  private getCurrentCreateSettingsOfCreateSvelte() {
+    const createSvelteSettings: PickableSetting[] = [
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Create Svelte',
+      },
+      {
+        currentValue: config.createSvelteWhichAppTemplate || 'default',
+        description: config.createSvelteWhichAppTemplate || 'default',
+        detail: '',
+        enumValues: ['default', 'skeleton', 'skeletonlib'],
+        label: 'Which Svelte app template?',
+        setValue: (newValue: 'default' | 'skeleton' | 'skeletonlib') => config.setCreateSvelteWhichAppTemplate(newValue),
+        settingKind: 'ENUM',
+      },
+      {
+        currentValue: config.createSvelteAddTypeCheckingWith || 'typescript',
+        description: config.createSvelteAddTypeCheckingWith || 'typescript',
+        detail: '',
+        enumValues: ['checkjs', 'typescript', 'no'],
+        label: 'Add type checking with TypeScript?',
+        setValue: (newValue: 'checkjs' | 'typescript' | 'no') => config.setCreateSvelteAddTypeCheckingWith(newValue),
+        settingKind: 'ENUM',
+      },
+      {
+        currentValue: config.createSvelteNeedsEslint ? 'Yes' : 'No',
+        description: config.createSvelteNeedsEslint ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add ESLint for code linting?',
+        setValue: (newValue: boolean) => config.setCreateSvelteNeedsEslint(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createSvelteNeedsPrettier ? 'Yes' : 'No',
+        description: config.createSvelteNeedsPrettier ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add Prettier for code formatting?',
+        setValue: (newValue: boolean) => config.setCreateSvelteNeedsPrettier(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createSvelteNeedsPlaywright ? 'Yes' : 'No',
+        description: config.createSvelteNeedsPlaywright ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add Playwright for browser testing?',
+        setValue: (newValue: boolean) => config.setCreateSvelteNeedsPlaywright(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createSvelteNeedsVitest ? 'Yes' : 'No',
+        description: config.createSvelteNeedsVitest ? 'Yes' : 'No',
+        detail: '',
+        label: 'Add Vitest for unit testing?',
+        setValue: (newValue: boolean) => config.setCreateSvelteNeedsVitest(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createSvelteTrySvelte5Preview ? 'Yes' : 'No',
+        description: config.createSvelteTrySvelte5Preview ? 'Yes' : 'No',
+        detail: '',
+        label: 'Try the Svelte 5 preview (unstable!)?',
+        setValue: (newValue: boolean) => config.setCreateSvelteTrySvelte5Preview(newValue),
+        settingKind: 'BOOL',
+      }
+    ]
+    return createSvelteSettings
   }
 
   private validateCreateNextAppImportAlias(input: string): string | InputBoxValidationMessage | undefined | null |

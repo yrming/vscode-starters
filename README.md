@@ -29,6 +29,7 @@ Kickstart your project with a Starter Template in VSCode
 
 <p align="center">
 <img width="1192" alt="Preview 1" src="./resources/preview1.png">
+
 <img width="1192" alt="Preview 2" src="./resources/preview2.png">
 </p>
 
@@ -41,6 +42,7 @@ Kickstart your project with a Starter Template in VSCode
 - [Vitesse](https://github.com/antfu/vitesse) - Opinionated starter template.
 - [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
 - [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) - The easiest way to get started with Next.js.
+- [Create Svelte](https://github.com/sveltejs/kit/tree/main/packages/create-svelte) - Create new SvelteKit projects.
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
 - [Starter VSCode](https://github.com/antfu/starter-vscode) - Starter template for VS Code Extension.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.

@@ -54,6 +54,14 @@ class Config {
   get createNextAppNeedsSrcDirectory(): boolean { return this.getConfig<boolean>('createNextApp.needsSrcDirectory', true) }
   get createNextAppNeedsAppRouter(): boolean { return this.getConfig<boolean>('createNextApp.needsAppRouter', true) }
   get createNextAppCustomizeTheDefaultImportAlias(): string { return this.getConfig<string>('createNextApp.customizeTheDefaultImportAlias', '@/*') }
+  // create svelte
+  get createSvelteWhichAppTemplate(): 'default' | 'skeleton' | 'skeletonlib' { return this.getConfig<'default' | 'skeleton' | 'skeletonlib'>('createSvelte.whichAppTemplate', 'default') }
+  get createSvelteAddTypeCheckingWith(): 'checkjs' | 'typescript' | 'no' { return this.getConfig<'checkjs' | 'typescript' | 'no'>('createSvelte.addTypeCheckingWith', 'typescript') }
+  get createSvelteNeedsEslint(): boolean { return this.getConfig<boolean>('createSvelte.needsEslint', true) }
+  get createSvelteNeedsPrettier(): boolean { return this.getConfig<boolean>('createSvelte.needsPrettier', true) }
+  get createSvelteNeedsPlaywright(): boolean { return this.getConfig<boolean>('createSvelte.needsPlaywright', true) }
+  get createSvelteNeedsVitest(): boolean { return this.getConfig<boolean>('createSvelte.needsVitest', true) }
+  get createSvelteTrySvelte5Preview(): boolean { return this.getConfig<boolean>('createSvelte.trySvelte5Preview', true) }
   // global settings
   get globalNeedsGitInit(): boolean { return this.getConfig<boolean>('globalSettings.needsGitInit', true) }
   get globalNeedsInstall(): boolean { return this.getConfig<boolean>('globalSettings.needsInstall', true) }
@@ -75,6 +83,14 @@ class Config {
   public setCreateNextAppNeedsSrcDirectory(value: boolean): Promise<void> { return this.setConfig('createNextApp.needsSrcDirectory', value, ConfigurationTarget.Global) }
   public setCreateNextAppNeedsAppRouter(value: boolean): Promise<void> { return this.setConfig('createNextApp.needsAppRouter', value, ConfigurationTarget.Global) }
   public setCreateNextAppCustomizeTheDefaultImportAlias(value: string): Promise<void> { return this.setConfig('createNextApp.customizeTheDefaultImportAlias', value, ConfigurationTarget.Global) }
+  // create svelte
+  public setCreateSvelteWhichAppTemplate(value: 'default' | 'skeleton' | 'skeletonlib'): Promise<void> { return this.setConfig('createSvelte.whichAppTemplate', value, ConfigurationTarget.Global) }
+  public setCreateSvelteAddTypeCheckingWith(value: 'checkjs' | 'typescript' | 'no'): Promise<void> { return this.setConfig('createSvelte.addTypeCheckingWith', value, ConfigurationTarget.Global) }
+  public setCreateSvelteNeedsEslint(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.needsEslint', value, ConfigurationTarget.Global) }
+  public setCreateSvelteNeedsPrettier(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.needsPrettier', value, ConfigurationTarget.Global) }
+  public setCreateSvelteNeedsPlaywright(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.needsPlaywright', value, ConfigurationTarget.Global) }
+  public setCreateSvelteNeedsVitest(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.needsVitest', value, ConfigurationTarget.Global) }
+  public setCreateSvelteTrySvelte5Preview(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.trySvelte5Preview', value, ConfigurationTarget.Global) }
   // global settings
   public setGlobalNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsGitInit', value, ConfigurationTarget.Global) }
   public setGlobalNeedsInstall(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsInstall', value, ConfigurationTarget.Global) }

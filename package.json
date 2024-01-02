@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starter Templates",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Kickstart your project with a Starter Template in VSCode",
   "license": "MIT",
   "repository": {
@@ -162,6 +162,62 @@
             "scope": "window"
           }
         }
+      },
+      {
+        "title": "Create Svelte(Official)",
+        "order": 4,
+        "properties": {
+          "starterTemplates.createSvelte.whichAppTemplate": {
+            "enum": [
+              "default",
+              "skeleton",
+              "skeletonlib"
+            ],
+            "default": "default",
+            "description": "Which Svelte app template?",
+            "scope": "window"
+          },
+          "starterTemplates.createSvelte.addTypeCheckingWith": {
+            "enum": [
+              "checkjs",
+              "typescript",
+              "no"
+            ],
+            "default": "typescript",
+            "markdownDescription": "Add type checking with TypeScript?",
+            "scope": "window"
+          },
+          "starterTemplates.createSvelte.needsEslint": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add ESLint for code linting?",
+            "scope": "window"
+          },
+          "starterTemplates.createSvelte.needsPrettier": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add Prettier for code formatting?",
+            "scope": "window"
+          },
+          "starterTemplates.createSvelte.needsPlaywright": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add Playwright for browser testing?",
+            "scope": "window"
+          },
+          "starterTemplates.createSvelte.needsVitest": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Add Vitest for unit testing?",
+            "scope": "window"
+          },
+          "starterTemplates.createSvelte.trySvelte5Preview": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Try the Svelte 5 preview (unstable!)?",
+            "scope": "window"
+          }
+        }
       }
     ]
   },
@@ -178,6 +234,7 @@
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
     "@types/degit": "^2.8.6",
+    "@types/fs-extra": "^11.0.4",
     "@types/mocha": "^10.0.6",
     "@types/node": "18.x",
     "@types/vscode": "^1.85.0",
@@ -185,9 +242,11 @@
     "@typescript-eslint/parser": "^6.13.1",
     "@vscode/test-cli": "^0.0.4",
     "@vscode/test-electron": "^2.3.8",
+    "create-svelte": "^6.0.5",
     "degit": "^2.8.4",
     "eslint": "^8.54.0",
     "execa": "^8.0.1",
+    "fs-extra": "^11.2.0",
     "nypm": "^0.3.3",
     "tsup": "^8.0.1",
     "typescript": "^5.3.2",
