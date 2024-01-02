@@ -12,7 +12,16 @@ Kickstart your project with a Starter Template in VSCode
 - As a front-end developer, everytime before I create a new project, I have to open a terminal, enter some commands recommended in the front-end framework documentation; sometimes I even forget these commands. This whole process apparently needs more efficiency.
 - During the development of Flutter, I found that I could quickly create a Flutter project through the Dart extension for VSCode, so I developed this extension in order to do the same when creating some front-end projects.
 
+## Features
+
+- Create project from starter template
+- Select your preferred package manager
+- Enable or disable automatic initialization of Git
+- Enable or disable automatic installation of dependencies
+
+
 ## Usage
+
 <p>
 <table><tr><td>Run <b><code>Starter Templates: New Project</code></b> command to create your new project</tr></td></table>
 </p>
@@ -32,6 +41,7 @@ Kickstart your project with a Starter Template in VSCode
 - [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
 - [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) - The easiest way to get started with Next.js.
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
+- [Starter VSCode](https://github.com/antfu/starter-vscode) - Starter template for VS Code Extension.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
 - ...
 

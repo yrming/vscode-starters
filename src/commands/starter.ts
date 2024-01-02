@@ -65,6 +65,9 @@ export class StarterCommands extends BaseCommands {
           case 'starter-ts':
             await degit('antfu/starter-ts').clone(`${projectPath}`)
             break
+          case 'starter-vscode':
+            await degit('antfu/starter-vscode').clone(`${projectPath}`)
+            break
           case 'vitesse-webext':
             await degit('antfu/vitesse-webext').clone(`${projectPath}`)
             break
@@ -281,6 +284,19 @@ export class StarterCommands extends BaseCommands {
         },
         detail: 'Starter template for TypeScript library',
         template: { id: 'starter-ts', defaultProjectName: 'ts-library-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'VSCode Extension',
+      },
+      {
+        label: 'Starter VSCode(Anthony Fu)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/vscode.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/vscode.svg')),
+        },
+        detail: 'Starter template for VS Code Extension',
+        template: { id: 'starter-vscode', defaultProjectName: 'vscode-extension-project' },
       },
       {
         kind: QuickPickItemKind.Separator,
