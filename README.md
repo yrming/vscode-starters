@@ -15,6 +15,7 @@ Kickstart your project with a Starter Template in VSCode
 ## Features
 
 - Create project from starter template
+- Set options for starter template
 - Select your preferred package manager
 - Enable or disable automatic initialization of Git
 - Enable or disable automatic installation of dependencies
