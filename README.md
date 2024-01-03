@@ -3,14 +3,23 @@
 <img src="resources/icon.png" alt="logo" width="150"/>
 </p>
 
+<h1 align="center">
+Starters
+</h1>
+
 <p align="center">
-Kickstart your project with a Starter Template in VSCode
+Kickstart your project with a starter in VSCode
 </p>
 
-## Why
+<p align="center">
+<a href="https://marketplace.visualstudio.com/items?itemName=YRM.starter-templates" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/YRM.starter-templates.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a>
+</p>
+
+
+## Motivation
 
 - As a front-end developer, everytime before I create a new project, I have to open a terminal, enter some commands recommended in the front-end framework documentation; sometimes I even forget these commands. This whole process apparently needs more efficiency.
-- During the development of Flutter, I found that I could quickly create a Flutter project through the Dart extension for VSCode, so I developed this extension in order to do the same when creating some front-end projects.
+- In the process of developing Flutter projects, I found that I could quickly create a Flutter project through the [Dart](https://github.com/Dart-Code/Dart-Code) extension for VSCode, so I developed this extension in order to do the same when creating some front-end projects.
 
 ## Features
 
@@ -24,7 +33,7 @@ Kickstart your project with a Starter Template in VSCode
 ## Usage
 
 <p>
-<table><tr><td>Run <b><code>Starter Templates: New Project</code></b> command to create your new project</tr></td></table>
+<table><tr><td>Run <b><code>Starters: New Project</code></b> command to create your new project</tr></td></table>
 </p>
 
 <p align="center">

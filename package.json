@@ -1,13 +1,13 @@
 {
   "publisher": "YRM",
   "name": "starter-templates",
-  "displayName": "Starter Templates",
+  "displayName": "Starters",
   "version": "0.8.0",
-  "description": "Kickstart your project with a Starter Template in VSCode",
+  "description": "Kickstart your project with a starter in VSCode",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yrming/vscode-starter-templates"
+    "url": "https://github.com/yrming/vscode-starters"
   },
   "categories": [
     "Other"
@@ -19,15 +19,14 @@
   },
   "activationEvents": [
     "onStartupFinished",
-    "workspaceContains:starterTemplates.create",
-    "onUri"
+    "workspaceContains:starters.create"
   ],
   "contributes": {
     "commands": [
       {
-        "command": "starterTemplates.createProject",
+        "command": "starters.createProject",
         "title": "New Project",
-        "category": "Starter Templates"
+        "category": "Starters"
       }
     ],
     "configuration": [
@@ -35,19 +34,19 @@
         "title": "Global Settings",
         "order": 1,
         "properties": {
-          "starterTemplates.globalSettings.needsGitInit": {
+          "starters.globalSettings.needsGitInit": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Initialize git repository?",
             "scope": "window"
           },
-          "starterTemplates.globalSettings.needsInstall": {
+          "starters.globalSettings.needsInstall": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Install project dependencies?",
             "scope": "window"
           },
-          "starterTemplates.globalSettings.packageManager": {
+          "starters.globalSettings.packageManager": {
             "enum": [
               "pnpm",
               "npm",
@@ -64,37 +63,37 @@
         "title": "Create Vue(Official)",
         "order": 2,
         "properties": {
-          "starterTemplates.createVue.needsTypeScript": {
+          "starters.createVue.needsTypeScript": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add TypeScript?",
             "scope": "window"
           },
-          "starterTemplates.createVue.needsJsx": {
+          "starters.createVue.needsJsx": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add JSX Support?",
             "scope": "window"
           },
-          "starterTemplates.createVue.needsRouter": {
+          "starters.createVue.needsRouter": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Vue Router for Single Page Application development?",
             "scope": "window"
           },
-          "starterTemplates.createVue.needsPinia": {
+          "starters.createVue.needsPinia": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Pinia for state management?",
             "scope": "window"
           },
-          "starterTemplates.createVue.needsVitest": {
+          "starters.createVue.needsVitest": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Vitest for Unit Testing?",
             "scope": "window"
           },
-          "starterTemplates.createVue.endToEndTestingSolution": {
+          "starters.createVue.endToEndTestingSolution": {
             "enum": [
               "Cypress",
               "Nightwatch",
@@ -105,13 +104,13 @@
             "description": "Add an End-to-End Testing Solution?",
             "scope": "window"
           },
-          "starterTemplates.createVue.needsEslint": {
+          "starters.createVue.needsEslint": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add ESLint for code quality?",
             "scope": "window"
           },
-          "starterTemplates.createVue.needsPrettier": {
+          "starters.createVue.needsPrettier": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Prettier for code formatting?",
@@ -123,37 +122,37 @@
         "title": "Create Next App(Official)",
         "order": 3,
         "properties": {
-          "starterTemplates.createNextApp.needsTypeScript": {
+          "starters.createNextApp.needsTypeScript": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Would you like to use TypeScript?",
             "scope": "window"
           },
-          "starterTemplates.createNextApp.needsEslint": {
+          "starters.createNextApp.needsEslint": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Would you like to use ESLint?",
             "scope": "window"
           },
-          "starterTemplates.createNextApp.needsTailwind": {
+          "starters.createNextApp.needsTailwind": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Would you like to use Tailwind CSS?",
             "scope": "window"
           },
-          "starterTemplates.createNextApp.needsSrcDirectory": {
+          "starters.createNextApp.needsSrcDirectory": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Would you like to use `src/` directory?",
             "scope": "window"
           },
-          "starterTemplates.createNextApp.needsAppRouter": {
+          "starters.createNextApp.needsAppRouter": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Would you like to use App Router? (recommended)",
             "scope": "window"
           },
-          "starterTemplates.createNextApp.customizeTheDefaultImportAlias": {
+          "starters.createNextApp.customizeTheDefaultImportAlias": {
             "type": "string",
             "default": "@/*",
             "pattern": "^.+\\/\\*$",
@@ -167,7 +166,7 @@
         "title": "Create Svelte(Official)",
         "order": 4,
         "properties": {
-          "starterTemplates.createSvelte.whichAppTemplate": {
+          "starters.createSvelte.whichAppTemplate": {
             "enum": [
               "default",
               "skeleton",
@@ -177,7 +176,7 @@
             "description": "Which Svelte app template?",
             "scope": "window"
           },
-          "starterTemplates.createSvelte.addTypeCheckingWith": {
+          "starters.createSvelte.addTypeCheckingWith": {
             "enum": [
               "checkjs",
               "typescript",
@@ -187,31 +186,31 @@
             "markdownDescription": "Add type checking with TypeScript?",
             "scope": "window"
           },
-          "starterTemplates.createSvelte.needsEslint": {
+          "starters.createSvelte.needsEslint": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add ESLint for code linting?",
             "scope": "window"
           },
-          "starterTemplates.createSvelte.needsPrettier": {
+          "starters.createSvelte.needsPrettier": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Prettier for code formatting?",
             "scope": "window"
           },
-          "starterTemplates.createSvelte.needsPlaywright": {
+          "starters.createSvelte.needsPlaywright": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Playwright for browser testing?",
             "scope": "window"
           },
-          "starterTemplates.createSvelte.needsVitest": {
+          "starters.createSvelte.needsVitest": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Add Vitest for unit testing?",
             "scope": "window"
           },
-          "starterTemplates.createSvelte.trySvelte5Preview": {
+          "starters.createSvelte.trySvelte5Preview": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Try the Svelte 5 preview (unstable!)?",

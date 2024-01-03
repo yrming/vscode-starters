@@ -45,7 +45,7 @@ async function handleStarterCreateTrigger(wf: WorkspaceFolder): Promise<void> {
 
 async function createStarterProject(projectPath: string, triggerData: StarterCreateTriggerData): Promise<boolean> {
   const args = { projectPath, triggerData } as StarterCreateCommandArgs
-  const code = await commands.executeCommand<number>('_starterTemplates.create', args)
+  const code = await commands.executeCommand<number>('_starters.create', args)
   return code === 0
 }
 

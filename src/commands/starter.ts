@@ -19,8 +19,8 @@ import { BaseCommands } from './base'
 export class StarterCommands extends BaseCommands {
   constructor(logger: Logger, context: Context) {
     super(logger, context)
-    this.disposables.push(commands.registerCommand('_starterTemplates.create', this.starterCreate, this))
-    this.disposables.push(commands.registerCommand('starterTemplates.createProject', this.createProject, this))
+    this.disposables.push(commands.registerCommand('_starters.create', this.starterCreate, this))
+    this.disposables.push(commands.registerCommand('starters.createProject', this.createProject, this))
   }
 
   private async starterCreate({ projectPath, triggerData }: StarterCreateCommandArgs) {

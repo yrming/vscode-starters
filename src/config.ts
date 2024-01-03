@@ -8,11 +8,11 @@ class Config {
 
   constructor() {
     workspace.onDidChangeConfiguration(e => this.reloadConfig())
-    this.config = workspace.getConfiguration('starterTemplates')
+    this.config = workspace.getConfiguration('starters')
   }
 
   private reloadConfig() {
-    this.config = workspace.getConfiguration('starterTemplates')
+    this.config = workspace.getConfiguration('starters')
   }
 
   private getConfig<T>(key: string, defaultValue: T): NullAsUndefined<T> {
@@ -107,7 +107,7 @@ export class ResourceConfig {
 
   constructor(uri?: Uri) {
     this.uri = uri
-    this.config = workspace.getConfiguration('starterTemplates', this.uri)
+    this.config = workspace.getConfiguration('starters', this.uri)
   }
 
   private getConfig<T>(key: string, defaultValue: T): NullAsUndefined<T> {
