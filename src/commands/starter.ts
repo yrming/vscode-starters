@@ -461,7 +461,7 @@ export class StarterCommands extends BaseCommands {
     const folderPath = fsPath(folders[0])
     this.context.lastUsedNewProjectPath = folderPath
 
-    const defaultName = nextAvailableFilename(folderPath, `${template.defaultProjectName} - `)
+    const defaultName = nextAvailableFilename(folderPath, `${template.defaultProjectName}-`)
     const name = await this.promptForNameWithSettings(template, defaultName, folderPath)
     if (!name)
       return

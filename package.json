@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starters",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "Kickstart your project with a starter in VSCode",
   "license": "MIT",
   "repository": {
