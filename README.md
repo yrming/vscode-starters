@@ -15,7 +15,6 @@ Kickstart your project with a starter in VSCode
 <a href="https://marketplace.visualstudio.com/items?itemName=YRM.starter-templates" target="__blank"><img src="https://img.shields.io/visual-studio-marketplace/v/YRM.starter-templates.svg?color=eee&amp;label=VS%20Code%20Marketplace&logo=visual-studio-code" alt="Visual Studio Marketplace Version" /></a>
 </p>
 
-
 ## Motivation
 
 - As a front-end developer, everytime before I create a new project, I have to open a terminal, enter some commands recommended in the front-end framework documentation; sometimes I even forget these commands. This whole process apparently needs more efficiency.
@@ -29,7 +28,6 @@ Kickstart your project with a starter in VSCode
 - Enable or disable automatic initialization of Git
 - Enable or disable automatic installation of dependencies
 
-
 ## Usage
 
 <p>
@@ -42,7 +40,6 @@ Kickstart your project with a starter in VSCode
 <img width="800" alt="Preview 2" src="./resources/preview2.png">
 </p>
 
-
 ## Support Templates
 
 - [Nuxt3 Minimal Starter](https://github.com/nuxt/starter/tree/v3) - Create a new Nuxt project.
@@ -52,6 +49,7 @@ Kickstart your project with a starter in VSCode
 - [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
 - [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) - The easiest way to get started with Next.js.
 - [Create Svelte](https://github.com/sveltejs/kit/tree/main/packages/create-svelte) - Create new SvelteKit projects.
+- [Create Solid](https://github.com/solidjs/solid-start/tree/main/packages/create-solid) - The easiest way to get started with Solid.
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
 - [Starter VSCode](https://github.com/antfu/starter-vscode) - Starter template for VS Code Extension.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.

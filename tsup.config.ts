@@ -12,6 +12,6 @@ export default defineConfig({
     'vscode',
   ],
   async onSuccess() {
-    fs.copySync('./node_modules/create-svelte/dist', './dist/dist', { overwrite: true });
+    fs.copySync('./node_modules/create-svelte/dist', './dist/dist', { overwrite: true })
   },
 })

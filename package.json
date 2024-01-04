@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starters",
-  "version": "0.9.0",
+  "version": "0.10.0",
   "description": "Kickstart your project with a starter in VSCode",
   "license": "MIT",
   "repository": {
@@ -217,6 +217,42 @@
             "scope": "window"
           }
         }
+      },
+      {
+        "title": "Create Solid(Official Beta)",
+        "order": 5,
+        "properties": {
+          "starters.createSolid.whichTemplate": {
+            "enum": [
+              "bare",
+              "basic",
+              "experiments",
+              "hackernews",
+              "todomvc",
+              "with-auth",
+              "with-mdx",
+              "with-prisma",
+              "with-solid-styled",
+              "with-tailwindcss",
+              "with-trpc"
+            ],
+            "default": "bare",
+            "description": "Which template do you want to use?",
+            "scope": "window"
+          },
+          "starters.createSolid.needsSsr": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Server Side Rendering?",
+            "scope": "window"
+          },
+          "starters.createSolid.needsTypeScript": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Use TypeScript?",
+            "scope": "window"
+          }
+        }
       }
     ]
   },
@@ -232,6 +268,11 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.4.6",
+    "@babel/core": "^7.23.7",
+    "@babel/plugin-syntax-jsx": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/babel-plugin-syntax-jsx": "^6.18.2",
+    "@types/babel__core": "^7.20.5",
     "@types/degit": "^2.8.6",
     "@types/fs-extra": "^11.0.4",
     "@types/mocha": "^10.0.6",
@@ -245,8 +286,10 @@
     "degit": "^2.8.4",
     "eslint": "^8.54.0",
     "execa": "^8.0.1",
+    "fast-glob": "^3.3.2",
     "fs-extra": "^11.2.0",
     "nypm": "^0.3.3",
+    "prettier": "^3.1.1",
     "tsup": "^8.0.1",
     "typescript": "^5.3.2",
     "vscode-uri": "^3.0.8"

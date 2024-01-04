@@ -1,12 +1,20 @@
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { chdir, cwd } from 'node:process'
+import fsExtra from 'fs-extra'
 import type { InputBoxValidationMessage, QuickPickItem } from 'vscode'
 import { ProgressLocation, QuickPickItemKind, Uri, commands, window } from 'vscode'
 import { create } from 'create-svelte'
 import degit from 'degit'
 import { $ } from 'execa'
+import fg from 'fast-glob'
 import { installDependencies } from 'nypm'
+import { transformSync } from '@babel/core'
+import pluginSyntaxJSX from '@babel/plugin-syntax-jsx'
+import presetTypescript from '@babel/preset-typescript'
+import prettierBabel from 'prettier/plugins/babel'
+import * as prettier from 'prettier/standalone'
+import * as prettierPluginEstree from 'prettier/plugins/estree'
 import type { Logger, ProjectTemplate, StarterCreateCommandArgs, StarterCreateTriggerData } from '../types'
 import { fsPath, nextAvailableFilename } from '../shared/utils/fs'
 import type { Context } from '../shared/vscode/workspace'
@@ -14,6 +22,8 @@ import type { PickableSetting } from '../shared/vscode/input'
 import { showInputBoxWithSettings, showSimpleSettingsEditor } from '../shared/vscode/input'
 import { config } from '../config'
 import { getFolderToRunCommandIn, writeStarterTriggerFile } from '../shared/vscode/project'
+import { gitIgnoreForCreateSolid } from '../shared/constants'
+import { compile } from '../shared/utils/gitignore'
 import { BaseCommands } from './base'
 
 export class StarterCommands extends BaseCommands {
@@ -65,6 +75,9 @@ export class StarterCommands extends BaseCommands {
             break
           case 'create-svelte':
             await this.handleCreateSvelte(projectName, projectPath!)
+            break
+          case 'create-solid':
+            await this.handleCreateSolid(projectName, projectPath!, dir)
             break
           case 'starter-ts':
             await degit('antfu/starter-ts').clone(`${projectPath}`)
@@ -123,6 +136,84 @@ export class StarterCommands extends BaseCommands {
     }
   }
 
+  private async handleCreateSolid(projectName: string, projectPath: string, dir: string) {
+    const templateName = config.createSolidWhichTemplate
+    await degit(`solidjs/solid-start/examples/${templateName}`, {
+      force: true,
+    }).clone(`${projectPath}`)
+
+    const gitignore = compile(gitIgnoreForCreateSolid)
+    const files = fg.sync('**/*', { cwd: projectPath }).filter(gitignore.accepts)
+    files.forEach(async (file) => {
+      const src = `${projectPath}/${file}`
+      if (src.endsWith('tsconfig.json') && !config.createSolidNeedsTypeScript) {
+        fsExtra.removeSync(src)
+        return fsExtra.writeFileSync(
+          `${projectPath}/jsconfig.json`,
+          JSON.stringify(
+            {
+              compilerOptions: {
+                jsx: 'preserve',
+                jsxImportSource: 'solid-js',
+                paths: {
+                  '~/*': ['./src/*'],
+                },
+              },
+            },
+            null,
+            2,
+          ),
+        )
+      }
+
+      let code = fsExtra.readFileSync(src).toString()
+      if (src.includes('vite.config') && !code.includes('ssr: false') && !config.createSolidNeedsSsr) {
+        code = code
+          .replace(`start: {`, `start: { ssr: false, `)
+          .replace(`defineConfig({})`, `defineConfig({ start: { ssr: false } })`)
+      }
+      if (src.endsWith('.ts') || src.endsWith('.tsx')) {
+        if (!config.createSolidNeedsTypeScript) {
+          const compiledCode = transformSync(code, {
+            filename: src,
+            presets: [presetTypescript],
+            plugins: [pluginSyntaxJSX],
+          })?.code
+
+          const formatCode = prettier.format(compiledCode ?? '', {
+            parser: 'babel',
+            plugins: [prettierBabel, prettierPluginEstree],
+          })
+          fsExtra.removeSync(src)
+          fsExtra.writeFileSync(src.replace('.ts', '.js'), await formatCode)
+        }
+        else {
+          fsExtra.removeSync(src)
+          fsExtra.writeFileSync(
+            src,
+            await prettier.format(code, { parser: 'babel-ts', plugins: [prettierBabel, prettierPluginEstree] }),
+          )
+        }
+      }
+    })
+    fsExtra.writeFileSync(`${projectPath}/.gitignore`, gitIgnoreForCreateSolid)
+
+    const pkgFile = path.join(projectPath, 'package.json')
+    const pkgJson = JSON.parse(
+      fs
+        .readFileSync(pkgFile, 'utf-8')
+        .replace(/"name": ".+"/, _m => `"name": "${projectName}"`)
+        .replace(/"(.+)": "workspace:.+"/g, (_m, projectName) => `"${projectName}": "next"`),
+    ) // TODO ^${versions[name]}
+
+    if (!config.createSolidNeedsTypeScript && pkgJson.devDependencies) {
+      delete pkgJson.devDependencies['@types/node']
+      delete pkgJson.devDependencies.typescript
+    }
+
+    fsExtra.writeFileSync(pkgFile, JSON.stringify(pkgJson, null, 2))
+  }
+
   private async handleCreateSvelte(projectName: string, projectPath: string) {
     await create(projectPath, {
       name: projectName,
@@ -168,9 +259,9 @@ export class StarterCommands extends BaseCommands {
       args.push(config.createNextAppCustomizeTheDefaultImportAlias)
     }
     if (config.globalPackageManager)
-      args.push(`--use-${config.globalPackageManager}`)
+      args.push(`--use - ${config.globalPackageManager}`)
 
-    await $`npx create-next-app ${projectName} ${args}`
+    await $`npx create - next - app@latest ${projectName} ${args}`
   }
 
   private async handleCreateVue(projectName: string, dir: string) {
@@ -204,7 +295,7 @@ export class StarterCommands extends BaseCommands {
       else
         args.push('--eslint')
     }
-    await $`npx create-vue ${projectName} ${dir} ${args}`
+    await $`npx create - vue@latest ${projectName} ${dir} ${args}`
   }
 
   private async createProject() {
@@ -305,6 +396,19 @@ export class StarterCommands extends BaseCommands {
       },
       {
         kind: QuickPickItemKind.Separator,
+        label: 'Solid',
+      },
+      {
+        label: 'Create Solid(Official Beta)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/solid.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/solid.svg')),
+        },
+        detail: 'SolidStart, the Solid app framework',
+        template: { id: 'create-solid', defaultProjectName: 'solid-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
         label: 'TypeScript Library',
       },
       {
@@ -357,7 +461,7 @@ export class StarterCommands extends BaseCommands {
     const folderPath = fsPath(folders[0])
     this.context.lastUsedNewProjectPath = folderPath
 
-    const defaultName = nextAvailableFilename(folderPath, `${template.defaultProjectName}-`)
+    const defaultName = nextAvailableFilename(folderPath, `${template.defaultProjectName} - `)
     const name = await this.promptForNameWithSettings(template, defaultName, folderPath)
     if (!name)
       return
@@ -424,6 +528,9 @@ export class StarterCommands extends BaseCommands {
         return this.getCurrentCreateSettingsOfCreateNextApp()
       case 'create-svelte':
         return [...this.getCurrentCreateSettingsOfCreateSvelte(), ...this.getGlobalSettings()]
+      case 'create-solid':
+        return [...this.getCurrentCreateSettingsOfCreateSolid(), ...this.getGlobalSettings()]
+
       default:
         return this.getGlobalSettings()
     }
@@ -577,7 +684,7 @@ export class StarterCommands extends BaseCommands {
         currentValue: config.createNextAppNeedsSrcDirectory ? 'Yes' : 'No',
         description: config.createNextAppNeedsSrcDirectory ? 'Yes' : 'No',
         detail: '',
-        label: 'Would you like to use `src/` directory?',
+        label: 'Would you like to use `src / ` directory?',
         setValue: (newValue: boolean) => config.setCreateNextAppNeedsSrcDirectory(newValue),
         settingKind: 'BOOL',
       },
@@ -665,9 +772,56 @@ export class StarterCommands extends BaseCommands {
         label: 'Try the Svelte 5 preview (unstable!)?',
         setValue: (newValue: boolean) => config.setCreateSvelteTrySvelte5Preview(newValue),
         settingKind: 'BOOL',
-      }
+      },
     ]
     return createSvelteSettings
+  }
+
+  private getCurrentCreateSettingsOfCreateSolid() {
+    const createSolidSettings: PickableSetting[] = [
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Create Solid',
+      },
+      {
+        currentValue: config.createSolidWhichTemplate || 'bare',
+        description: config.createSolidWhichTemplate || 'bare',
+        detail: '',
+        enumValues: [
+          'bare',
+          'basic',
+          'experiments',
+          'hackernews',
+          'todomvc',
+          'with-auth',
+          'with-mdx',
+          'with-prisma',
+          'with-solid-styled',
+          'with-tailwindcss',
+          'with-trpc',
+        ],
+        label: 'Which Svelte app template?',
+        setValue: (newValue: 'bare' | 'basic' | 'experiments' | 'hackernews' | 'todomvc' | 'with-auth' | 'with-mdx' | 'with-prisma' | 'with-solid-styled' | 'with-tailwindcss' | 'with-trpc') => config.setCreateSolidWhichTemplate(newValue),
+        settingKind: 'ENUM',
+      },
+      {
+        currentValue: config.createSolidNeedsSsr ? 'Yes' : 'No',
+        description: config.createSolidNeedsSsr ? 'Yes' : 'No',
+        detail: '',
+        label: 'Server Side Rendering?',
+        setValue: (newValue: boolean) => config.setCreateSolidNeedsSsr(newValue),
+        settingKind: 'BOOL',
+      },
+      {
+        currentValue: config.createSolidNeedsTypeScript ? 'Yes' : 'No',
+        description: config.createSolidNeedsTypeScript ? 'Yes' : 'No',
+        detail: '',
+        label: 'Use TypeScript?',
+        setValue: (newValue: boolean) => config.setCreateSolidNeedsTypeScript(newValue),
+        settingKind: 'BOOL',
+      },
+    ]
+    return createSolidSettings
   }
 
   private validateCreateNextAppImportAlias(input: string): string | InputBoxValidationMessage | undefined | null |

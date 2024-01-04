@@ -62,6 +62,10 @@ class Config {
   get createSvelteNeedsPlaywright(): boolean { return this.getConfig<boolean>('createSvelte.needsPlaywright', true) }
   get createSvelteNeedsVitest(): boolean { return this.getConfig<boolean>('createSvelte.needsVitest', true) }
   get createSvelteTrySvelte5Preview(): boolean { return this.getConfig<boolean>('createSvelte.trySvelte5Preview', true) }
+  // create solid
+  get createSolidWhichTemplate(): 'bare' | 'basic' | 'experiments' | 'hackernews' | 'todomvc' | 'with-auth' | 'with-mdx' | 'with-prisma' | 'with-solid-styled' | 'with-tailwindcss' | 'with-trpc' { return this.getConfig<'bare' | 'basic' | 'experiments' | 'hackernews' | 'todomvc' | 'with-auth' | 'with-mdx' | 'with-prisma' | 'with-solid-styled' | 'with-tailwindcss' | 'with-trpc'>('createSolid.whichTemplate', 'bare') }
+  get createSolidNeedsTypeScript(): boolean { return this.getConfig<boolean>('createSolid.needsTypeScript', true) }
+  get createSolidNeedsSsr(): boolean { return this.getConfig<boolean>('createSolid.needsSsr', true) }
   // global settings
   get globalNeedsGitInit(): boolean { return this.getConfig<boolean>('globalSettings.needsGitInit', true) }
   get globalNeedsInstall(): boolean { return this.getConfig<boolean>('globalSettings.needsInstall', true) }
@@ -91,6 +95,10 @@ class Config {
   public setCreateSvelteNeedsPlaywright(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.needsPlaywright', value, ConfigurationTarget.Global) }
   public setCreateSvelteNeedsVitest(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.needsVitest', value, ConfigurationTarget.Global) }
   public setCreateSvelteTrySvelte5Preview(value: boolean): Promise<void> { return this.setConfig<boolean>('createSvelte.trySvelte5Preview', value, ConfigurationTarget.Global) }
+  // create solid
+  public setCreateSolidWhichTemplate(value: 'bare' | 'basic' | 'experiments' | 'hackernews' | 'todomvc' | 'with-auth' | 'with-mdx' | 'with-prisma' | 'with-solid-styled' | 'with-tailwindcss' | 'with-trpc'): Promise<void> { return this.setConfig('createSolid.whichTemplate', value, ConfigurationTarget.Global) }
+  public setCreateSolidNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig<boolean>('createSolid.needsTypeScript', value, ConfigurationTarget.Global) }
+  public setCreateSolidNeedsSsr(value: boolean): Promise<void> { return this.setConfig<boolean>('createSolid.needsSsr', value, ConfigurationTarget.Global) }
   // global settings
   public setGlobalNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsGitInit', value, ConfigurationTarget.Global) }
   public setGlobalNeedsInstall(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsInstall', value, ConfigurationTarget.Global) }
