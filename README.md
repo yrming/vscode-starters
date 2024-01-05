@@ -56,6 +56,44 @@ Kickstart your project with a starter in VSCode
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
 - ...
 
+## Settings
+
+```js
+{
+  "starters.globalSettings.needsGitInit": true,
+  "starters.globalSettings.needsInstall": true,
+  "starters.globalSettings.packageManager": "pnpm",
+
+  "starters.createVue.needsTypeScript": true,
+  "starters.createVue.needsJsx": true,
+  "starters.createVue.needsRouter": true,
+  "starters.createVue.needsPinia": true,
+  "starters.createVue.needsVitest": true,
+  "starters.createVue.endToEndTestingSolution": "cypress",
+  "starters.createVue.needsEslint": true,
+  "starters.createVue.needsPrettier": true,
+
+  "starters.createNextApp.needsTypeScript": true,
+  "starters.createNextApp.needsEslint": true,
+  "starters.createNextApp.needsTailwind": true,
+  "starters.createNextApp.needsSrcDirectory": true,
+  "starters.createNextApp.needsAppRouter": true,
+  "starters.createNextApp.customizeTheDefaultImportAlias": "@/*",
+
+  "starters.createSvelte.whichAppTemplate": "default",
+  "starters.createSvelte.addTypeCheckingWith": "typescript",
+  "starters.createSvelte.needsEslint": true,
+  "starters.createSvelte.needsPrettier": true,
+  "starters.createSvelte.needsPlaywright": true,
+  "starters.createSvelte.needsVitest": true,
+  "starters.createSvelte.trySvelte5Preview": true,
+
+  "starters.createSolid.whichTemplate": "bare",
+  "starters.createSolid.needsSsr": true,
+  "starters.createSolid.needsTypeScript": true,
+}
+```
+
 ## License
 
 MIT License © 2023 [YRM](https://github.com/yrming)
