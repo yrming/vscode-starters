@@ -36,7 +36,8 @@ Kickstart your project with a starter in VSCode
 
 <p align="center">
 <img width="800" alt="Preview 1" src="./resources/preview1.png">
-<br>
+</p>
+<p align="center">
 <img width="800" alt="Preview 2" src="./resources/preview2.png">
 </p>
 
