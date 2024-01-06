@@ -77,13 +77,16 @@ export class StarterCommands extends BaseCommands {
             await this.handleCreateSvelte(projectName, projectPath!)
             break
           case 'create-solid':
-            await this.handleCreateSolid(projectName, projectPath!, dir)
+            await this.handleCreateSolid(projectName, projectPath!)
             break
           case 'starter-ts':
             await degit('antfu/starter-ts').clone(`${projectPath}`)
             break
           case 'starter-vscode':
             await degit('antfu/starter-vscode').clone(`${projectPath}`)
+            break
+          case 'nest-cli':
+            await this.handleCreateNest(projectName)
             break
           case 'vitesse-webext':
             await degit('antfu/vitesse-webext').clone(`${projectPath}`)
@@ -136,7 +139,22 @@ export class StarterCommands extends BaseCommands {
     }
   }
 
-  private async handleCreateSolid(projectName: string, projectPath: string, dir: string) {
+  private async handleCreateNest(projectName: string) {
+    const args = []
+    args.push('--package-manager')
+    args.push(config.globalPackageManager)
+    args.push('--directory')
+    args.push(`./${projectName}`)
+    args.push('--language')
+    if (config.createNestNeedsTypeScript)
+      args.push('TypeScript')
+    else
+      args.push('JavaScript')
+
+    await $`npx @nestjs/cli@latest new ${projectName} ${args}`
+  }
+
+  private async handleCreateSolid(projectName: string, projectPath: string) {
     const templateName = config.createSolidWhichTemplate
     await degit(`solidjs/solid-start/examples/${templateName}`, {
       force: true,
@@ -259,9 +277,9 @@ export class StarterCommands extends BaseCommands {
       args.push(config.createNextAppCustomizeTheDefaultImportAlias)
     }
     if (config.globalPackageManager)
-      args.push(`--use - ${config.globalPackageManager}`)
+      args.push(`--use-${config.globalPackageManager}`)
 
-    await $`npx create - next - app@latest ${projectName} ${args}`
+    await $`npx create-next-app@latest ${projectName} ${args}`
   }
 
   private async handleCreateVue(projectName: string, dir: string) {
@@ -295,7 +313,7 @@ export class StarterCommands extends BaseCommands {
       else
         args.push('--eslint')
     }
-    await $`npx create - vue@latest ${projectName} ${dir} ${args}`
+    await $`npx create-vue@latest ${projectName} ${dir} ${args}`
   }
 
   private async createProject() {
@@ -435,6 +453,19 @@ export class StarterCommands extends BaseCommands {
       },
       {
         kind: QuickPickItemKind.Separator,
+        label: 'Nest',
+      },
+      {
+        label: 'Nest CLI(Official)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/nest.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/nest.svg')),
+        },
+        detail: 'CLI tool for Nest applications',
+        template: { id: 'nest-cli', defaultProjectName: 'nest-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
         label: 'Web Extension',
       },
       {
@@ -530,7 +561,8 @@ export class StarterCommands extends BaseCommands {
         return [...this.getCurrentCreateSettingsOfCreateSvelte(), ...this.getGlobalSettings()]
       case 'create-solid':
         return [...this.getCurrentCreateSettingsOfCreateSolid(), ...this.getGlobalSettings()]
-
+      case 'nest-cli':
+        return [...this.getCurrentCreateSettingsOfCreateNest(), ...this.getGlobalSettings()]
       default:
         return this.getGlobalSettings()
     }
@@ -709,6 +741,12 @@ export class StarterCommands extends BaseCommands {
     return createNextAppSettings
   }
 
+  private validateCreateNextAppImportAlias(input: string): string | InputBoxValidationMessage | undefined | null |
+    Thenable<string | InputBoxValidationMessage | undefined | null> {
+    if (!/^.+\/\*$/.test(input))
+      return 'Import alias must follow the pattern <prefix>/*'
+  }
+
   private getCurrentCreateSettingsOfCreateSvelte() {
     const createSvelteSettings: PickableSetting[] = [
       {
@@ -824,10 +862,22 @@ export class StarterCommands extends BaseCommands {
     return createSolidSettings
   }
 
-  private validateCreateNextAppImportAlias(input: string): string | InputBoxValidationMessage | undefined | null |
-    Thenable<string | InputBoxValidationMessage | undefined | null> {
-    if (!/^.+\/\*$/.test(input))
-      return 'Import alias must follow the pattern <prefix>/*'
+  private getCurrentCreateSettingsOfCreateNest() {
+    const createNestSettings: PickableSetting[] = [
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Nest Cli',
+      },
+      {
+        currentValue: config.createNestNeedsTypeScript ? 'Yes' : 'No',
+        description: config.createNestNeedsTypeScript ? 'Yes' : 'No',
+        detail: '',
+        label: 'Use TypeScript?',
+        setValue: (newValue: boolean) => config.setCreateNestNeedsTypeScript(newValue),
+        settingKind: 'BOOL',
+      },
+    ]
+    return createNestSettings
   }
 }
 

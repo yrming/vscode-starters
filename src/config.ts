@@ -66,6 +66,8 @@ class Config {
   get createSolidWhichTemplate(): 'bare' | 'basic' | 'experiments' | 'hackernews' | 'todomvc' | 'with-auth' | 'with-mdx' | 'with-prisma' | 'with-solid-styled' | 'with-tailwindcss' | 'with-trpc' { return this.getConfig<'bare' | 'basic' | 'experiments' | 'hackernews' | 'todomvc' | 'with-auth' | 'with-mdx' | 'with-prisma' | 'with-solid-styled' | 'with-tailwindcss' | 'with-trpc'>('createSolid.whichTemplate', 'bare') }
   get createSolidNeedsTypeScript(): boolean { return this.getConfig<boolean>('createSolid.needsTypeScript', true) }
   get createSolidNeedsSsr(): boolean { return this.getConfig<boolean>('createSolid.needsSsr', true) }
+  // create nest
+  get createNestNeedsTypeScript(): boolean { return this.getConfig<boolean>('createNest.needsTypeScript', true) }
   // global settings
   get globalNeedsGitInit(): boolean { return this.getConfig<boolean>('globalSettings.needsGitInit', true) }
   get globalNeedsInstall(): boolean { return this.getConfig<boolean>('globalSettings.needsInstall', true) }
@@ -99,6 +101,8 @@ class Config {
   public setCreateSolidWhichTemplate(value: 'bare' | 'basic' | 'experiments' | 'hackernews' | 'todomvc' | 'with-auth' | 'with-mdx' | 'with-prisma' | 'with-solid-styled' | 'with-tailwindcss' | 'with-trpc'): Promise<void> { return this.setConfig('createSolid.whichTemplate', value, ConfigurationTarget.Global) }
   public setCreateSolidNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig<boolean>('createSolid.needsTypeScript', value, ConfigurationTarget.Global) }
   public setCreateSolidNeedsSsr(value: boolean): Promise<void> { return this.setConfig<boolean>('createSolid.needsSsr', value, ConfigurationTarget.Global) }
+  // create nest
+  public setCreateNestNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig<boolean>('createNest.needsTypeScript', value, ConfigurationTarget.Global) }
   // global settings
   public setGlobalNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsGitInit', value, ConfigurationTarget.Global) }
   public setGlobalNeedsInstall(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsInstall', value, ConfigurationTarget.Global) }

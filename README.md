@@ -41,21 +41,6 @@ Kickstart your project with a starter in VSCode
 <img width="800" alt="Preview 2" src="./resources/preview2.png">
 </p>
 
-## Support Templates
-
-- [Nuxt3 Minimal Starter](https://github.com/nuxt/starter/tree/v3) - Create a new Nuxt project.
-- [Vitesse Nuxt3](https://github.com/antfu/vitesse-nuxt3) - Vitesse for Nuxt 3.
-- [Create Vue](https://github.com/vuejs/create-vue) - The recommended way to start a Vite-powered Vue project.
-- [Vitesse](https://github.com/antfu/vitesse) - Opinionated starter template.
-- [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
-- [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) - The easiest way to get started with Next.js.
-- [Create Svelte](https://github.com/sveltejs/kit/tree/main/packages/create-svelte) - Create new SvelteKit projects.
-- [Create Solid](https://github.com/solidjs/solid-start/tree/main/packages/create-solid) - The easiest way to get started with Solid.
-- [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
-- [Starter VSCode](https://github.com/antfu/starter-vscode) - Starter template for VS Code Extension.
-- [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
-- ...
-
 ## Settings
 
 ```js
@@ -91,8 +76,26 @@ Kickstart your project with a starter in VSCode
   "starters.createSolid.whichTemplate": "bare",
   "starters.createSolid.needsSsr": true,
   "starters.createSolid.needsTypeScript": true,
+
+  "starters.createNest.needsTypeScript": true,
 }
 ```
+
+## Support Templates
+
+- [Nuxt3 Minimal Starter](https://github.com/nuxt/starter/tree/v3) - Create a new Nuxt project.
+- [Vitesse Nuxt3](https://github.com/antfu/vitesse-nuxt3) - Vitesse for Nuxt 3.
+- [Create Vue](https://github.com/vuejs/create-vue) - The recommended way to start a Vite-powered Vue project.
+- [Vitesse](https://github.com/antfu/vitesse) - Opinionated starter template.
+- [Vitesse Lite](https://github.com/antfu/vitesse-lite) - Lightweight version of Vitesse.
+- [Create Next App](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) - The easiest way to get started with Next.js.
+- [Create Svelte](https://github.com/sveltejs/kit/tree/main/packages/create-svelte) - Create new SvelteKit projects.
+- [Create Solid](https://github.com/solidjs/solid-start/tree/main/packages/create-solid) - The easiest way to get started with Solid.
+- [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
+- [Starter VSCode](https://github.com/antfu/starter-vscode) - Starter template for VS Code Extension.
+- [Nest CLI](https://github.com/nestjs/nest-cli) - CLI tool for Nest applications.
+- [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
+- ...
 
 ## License
 

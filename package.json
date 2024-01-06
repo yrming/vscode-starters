@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starters",
-  "version": "0.10.1",
+  "version": "0.11.0",
   "description": "Kickstart your project with a starter in VSCode",
   "license": "MIT",
   "repository": {
@@ -247,6 +247,18 @@
             "scope": "window"
           },
           "starters.createSolid.needsTypeScript": {
+            "type": "boolean",
+            "default": true,
+            "markdownDescription": "Use TypeScript?",
+            "scope": "window"
+          }
+        }
+      },
+      {
+        "title": "Nest CLI(Official)",
+        "order": 6,
+        "properties": {
+          "starters.createNest.needsTypeScript": {
             "type": "boolean",
             "default": true,
             "markdownDescription": "Use TypeScript?",
