@@ -85,11 +85,11 @@ export class StarterCommands extends BaseCommands {
           case 'starter-vscode':
             await degit('antfu/starter-vscode').clone(`${projectPath}`)
             break
-          case 'nest-cli':
-            await this.handleCreateNest(projectName)
-            break
           case 'vitesse-webext':
             await degit('antfu/vitesse-webext').clone(`${projectPath}`)
+            break
+          case 'nest-cli':
+            await this.handleCreateNest(projectName)
             break
 
           default:
@@ -456,15 +456,6 @@ export class StarterCommands extends BaseCommands {
         label: 'Nest',
       },
       {
-        label: 'Nest CLI(Official)',
-        iconPath: {
-          dark: Uri.file(this.context.asAbsolutePath('resources/nest.svg')),
-          light: Uri.file(this.context.asAbsolutePath('resources/nest.svg')),
-        },
-        detail: 'CLI tool for Nest applications',
-        template: { id: 'nest-cli', defaultProjectName: 'nest-project' },
-      },
-      {
         kind: QuickPickItemKind.Separator,
         label: 'Web Extension',
       },
@@ -476,6 +467,15 @@ export class StarterCommands extends BaseCommands {
         },
         detail: 'WebExtension Vite Starter Template',
         template: { id: 'vitesse-webext', defaultProjectName: 'webext-vitesse-project' },
+      },
+      {
+        label: 'Nest CLI(Official)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/nest.svg')),
+          light: Uri.file(this.context.asAbsolutePath('resources/nest.svg')),
+        },
+        detail: 'CLI tool for Nest applications',
+        template: { id: 'nest-cli', defaultProjectName: 'nest-project' },
       },
     ]
     return templates

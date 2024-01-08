@@ -93,8 +93,8 @@ Kickstart your project with a starter in VSCode
 - [Create Solid](https://github.com/solidjs/solid-start/tree/main/packages/create-solid) - The easiest way to get started with Solid.
 - [Starter TS](https://github.com/antfu/starter-ts) - Starter template for TypeScript library.
 - [Starter VSCode](https://github.com/antfu/starter-vscode) - Starter template for VS Code Extension.
-- [Nest CLI](https://github.com/nestjs/nest-cli) - CLI tool for Nest applications.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
+- [Nest CLI](https://github.com/nestjs/nest-cli) - CLI tool for Nest applications.
 - ...
 
 ## License
