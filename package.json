@@ -2,7 +2,7 @@
   "publisher": "YRM",
   "name": "starter-templates",
   "displayName": "Starters",
-  "version": "0.11.0",
+  "version": "0.12.0",
   "description": "Kickstart your project with a starter in VSCode",
   "license": "MIT",
   "repository": {
@@ -262,6 +262,23 @@
             "type": "boolean",
             "default": true,
             "markdownDescription": "Use TypeScript?",
+            "scope": "window"
+          }
+        }
+      },
+      {
+        "title": "Create Expo App(Official)",
+        "order": 7,
+        "properties": {
+          "starters.createExpoApp.whichTemplate": {
+            "enum": [
+              "expo-template-blank",
+              "expo-template-blank-typescript",
+              "expo-template-tabs",
+              "expo-template-bare-minimum"
+            ],
+            "default": "expo-template-blank-typescript",
+            "description": "Which template do you want to use?",
             "scope": "window"
           }
         }

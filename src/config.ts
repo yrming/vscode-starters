@@ -68,6 +68,8 @@ class Config {
   get createSolidNeedsSsr(): boolean { return this.getConfig<boolean>('createSolid.needsSsr', true) }
   // create nest
   get createNestNeedsTypeScript(): boolean { return this.getConfig<boolean>('createNest.needsTypeScript', true) }
+  // create expo app
+  get createExpoAppWhichAppTemplate(): 'expo-template-blank' | 'expo-template-blank-typescript' | 'expo-template-tabs' | 'expo-template-bare-minimum' { return this.getConfig<'expo-template-blank' | 'expo-template-blank-typescript' | 'expo-template-tabs' | 'expo-template-bare-minimum'>('createExpoApp.whichTemplate', 'expo-template-blank-typescript') }
   // global settings
   get globalNeedsGitInit(): boolean { return this.getConfig<boolean>('globalSettings.needsGitInit', true) }
   get globalNeedsInstall(): boolean { return this.getConfig<boolean>('globalSettings.needsInstall', true) }
@@ -103,6 +105,8 @@ class Config {
   public setCreateSolidNeedsSsr(value: boolean): Promise<void> { return this.setConfig<boolean>('createSolid.needsSsr', value, ConfigurationTarget.Global) }
   // create nest
   public setCreateNestNeedsTypeScript(value: boolean): Promise<void> { return this.setConfig<boolean>('createNest.needsTypeScript', value, ConfigurationTarget.Global) }
+  // create expo app
+  public setCreateExpoAppWhichAppTemplate(value: 'expo-template-blank' | 'expo-template-blank-typescript' | 'expo-template-tabs' | 'expo-template-bare-minimum'): Promise<void> { return this.setConfig('createExpoApp.whichTemplate', value, ConfigurationTarget.Global) }
   // global settings
   public setGlobalNeedsGitInit(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsGitInit', value, ConfigurationTarget.Global) }
   public setGlobalNeedsInstall(value: boolean): Promise<void> { return this.setConfig('globalSettings.needsInstall', value, ConfigurationTarget.Global) }

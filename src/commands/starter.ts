@@ -91,7 +91,9 @@ export class StarterCommands extends BaseCommands {
           case 'nest-cli':
             await this.handleCreateNest(projectName)
             break
-
+          case 'create-expo-app':
+            await this.handleCreateExpoApp(projectPath!)
+            break
           default:
             break
         }
@@ -114,7 +116,6 @@ export class StarterCommands extends BaseCommands {
   private async handleCommonActions(projectPath: string) {
     if (config.globalNeedsGitInit)
       await $`git init ${projectPath!}`
-
     if (config.globalNeedsInstall) {
       await window.withProgress({
         location: ProgressLocation.Notification,
@@ -133,10 +134,15 @@ export class StarterCommands extends BaseCommands {
           })
         }
         catch (error) {
+          console.log(error)
           window.showWarningMessage('Failed to install dependencies!')
         }
       })
     }
+  }
+
+  private async handleCreateExpoApp(projectPath: string) {
+    await degit(`expo/expo/templates/${config.createExpoAppWhichAppTemplate}`).clone(`${projectPath}`)
   }
 
   private async handleCreateNest(projectName: string) {
@@ -469,6 +475,10 @@ export class StarterCommands extends BaseCommands {
         template: { id: 'vitesse-webext', defaultProjectName: 'webext-vitesse-project' },
       },
       {
+        kind: QuickPickItemKind.Separator,
+        label: 'Nest',
+      },
+      {
         label: 'Nest CLI(Official)',
         iconPath: {
           dark: Uri.file(this.context.asAbsolutePath('resources/nest.svg')),
@@ -476,6 +486,19 @@ export class StarterCommands extends BaseCommands {
         },
         detail: 'CLI tool for Nest applications',
         template: { id: 'nest-cli', defaultProjectName: 'nest-project' },
+      },
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Expo',
+      },
+      {
+        label: 'Create Expo App(Official)',
+        iconPath: {
+          dark: Uri.file(this.context.asAbsolutePath('resources/expo.png')),
+          light: Uri.file(this.context.asAbsolutePath('resources/expo.png')),
+        },
+        detail: 'The fastest way to create universal React apps',
+        template: { id: 'create-expo-app', defaultProjectName: 'expo-project' },
       },
     ]
     return templates
@@ -563,6 +586,8 @@ export class StarterCommands extends BaseCommands {
         return [...this.getCurrentCreateSettingsOfCreateSolid(), ...this.getGlobalSettings()]
       case 'nest-cli':
         return [...this.getCurrentCreateSettingsOfCreateNest(), ...this.getGlobalSettings()]
+      case 'create-expo-app':
+        return [...this.getCurrentCreateSettingsOfCreateExpoApp(), ...this.getGlobalSettings()]
       default:
         return this.getGlobalSettings()
     }
@@ -813,6 +838,30 @@ export class StarterCommands extends BaseCommands {
       },
     ]
     return createSvelteSettings
+  }
+
+  private getCurrentCreateSettingsOfCreateExpoApp() {
+    const createExpoSettings: PickableSetting[] = [
+      {
+        kind: QuickPickItemKind.Separator,
+        label: 'Create Expo App',
+      },
+      {
+        currentValue: config.createExpoAppWhichAppTemplate || 'expo-template-blank-typescript',
+        description: config.createExpoAppWhichAppTemplate || 'expo-template-blank-typescript',
+        detail: '',
+        enumValues: [
+          'expo-template-blank',
+          'expo-template-blank-typescript',
+          'expo-template-tabs',
+          'expo-template-bare-minimum'
+        ],
+        label: 'Which template do you want to use?',
+        setValue: (newValue: 'expo-template-blank' | 'expo-template-blank-typescript' | 'expo-template-tabs' | 'expo-template-bare-minimum') => config.setCreateExpoAppWhichAppTemplate(newValue),
+        settingKind: 'ENUM',
+      },
+    ]
+    return createExpoSettings
   }
 
   private getCurrentCreateSettingsOfCreateSolid() {
