@@ -78,6 +78,8 @@ Kickstart your project with a starter in VSCode
   "starters.createSolid.needsTypeScript": true,
 
   "starters.createNest.needsTypeScript": true,
+
+  "starters.createExpoApp.whichTemplate": "expo-template-blank-typescript"
 }
 ```
 
@@ -95,6 +97,7 @@ Kickstart your project with a starter in VSCode
 - [Starter VSCode](https://github.com/antfu/starter-vscode) - Starter template for VS Code Extension.
 - [Vitesse WebExt](https://github.com/antfu/vitesse-webext) - WebExtension Vite Starter Template.
 - [Nest CLI](https://github.com/nestjs/nest-cli) - CLI tool for Nest applications.
+- [Create Expo App](https://github.com/expo/expo/tree/main/packages/create-expo) - The fastest way to create universal React apps.
 - ...
 
 ## License
